@@ -1,0 +1,24 @@
+Client 0 connected. Time: Fri Oct 08 08:48:38 2021
+
+Client 1 connected. Time: Fri Oct 08 08:48:53 2021
+
+Client 1: Hello world!. Message. Time: Fri Oct 08 08:49:12 2021
+
+Client 0: Hello. Message. Time: Fri Oct 08 08:49:27 2021
+
+Client 1: Who. Command. Time: Fri Oct 08 08:49:34 2021
+
+Client 0: Who. Command. Time: Fri Oct 08 08:49:51 2021
+
+Client 1: exit. Command. Time: Fri Oct 08 08:50:01 2021
+
+Client 2 connected. Time: Fri Oct 08 08:50:09 2021
+
+Client 0: Hello. Message. Time: Fri Oct 08 08:50:18 2021
+
+Client 0: Hello. Message. Time: Fri Oct 08 08:50:18 2021
+
+Client 2: exit. Command. Time: Fri Oct 08 08:50:25 2021
+
+Client 0: exit. Command. Time: Fri Oct 08 08:50:30 2021
+

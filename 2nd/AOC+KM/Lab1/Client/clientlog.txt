@@ -1,0 +1,12 @@
+Client received msg from server: Hello world!. Time: Fri Oct 08 08:49:12 2021
+
+Client send msg to server: Hello Time: Fri Oct 08 08:49:27 2021
+
+Client send msg to server: Who Time: Fri Oct 08 08:49:51 2021
+
+Client received msg from server: Krymlov Danil, 4th, Client chat. Time: Fri Oct 08 08:49:51 2021
+
+Client send msg to server: Hello Time: Fri Oct 08 08:50:18 2021
+
+Client send msg to server: exit Time: Fri Oct 08 08:50:30 2021
+

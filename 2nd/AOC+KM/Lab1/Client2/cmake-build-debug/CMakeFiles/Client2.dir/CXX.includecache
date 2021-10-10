@@ -1,0 +1,26 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+E:/Users/Danil/Desktop/KNU2020/AOC/FirstLab/Client2/Addr.h
+winsock2.h
+-
+string
+-
+
+E:/Users/Danil/Desktop/KNU2020/AOC/FirstLab/Client2/main.cpp
+iostream
+-
+winsock2.h
+-
+fstream
+-
+Addr.h
+E:/Users/Danil/Desktop/KNU2020/AOC/FirstLab/Client2/Addr.h
+ctime
+-
+
