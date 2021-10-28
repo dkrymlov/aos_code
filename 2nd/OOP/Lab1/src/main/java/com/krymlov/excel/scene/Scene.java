@@ -2,8 +2,14 @@ package com.krymlov.excel.scene;
 
 import com.krymlov.excel.calculator.Calculator;
 import com.krymlov.excel.calculator.LexemeBuffer;
+import org.apache.poi.hssf.usermodel.HSSFSheet;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.*;
+import org.apache.poi.xssf.usermodel.*;
 
 import java.awt.*;
+import java.awt.Color;
+import java.awt.Font;
 import java.io.*;
 import java.util.*;
 import javax.swing.*;
@@ -13,6 +19,8 @@ import java.awt.event.ActionListener;
 import java.util.List;
 import java.util.Vector;
 import javax.swing.filechooser.FileNameExtensionFilter;
+
+
 
 import static com.krymlov.excel.calculator.Calculator.*;
 
@@ -33,6 +41,7 @@ public class Scene extends JFrame {
     private JMenu jMenu;
     private JMenuItem jMenuSetDefaultTable;
     private JMenuItem jMenuItemSave;
+    private JMenuItem jMenuItemImport;
     private JFileChooser fileChooser;
     private JPanel jPanel1;
     private JPanel jPanel2;
@@ -114,6 +123,7 @@ public class Scene extends JFrame {
         this.jMenuItemSave.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                fileChooser.setDialogTitle("Збереження таблиці");
                 int result = fileChooser.showSaveDialog(Scene.this);
                 if (result == JFileChooser.APPROVE_OPTION) {
                     prepareToExport(table);
@@ -121,6 +131,64 @@ public class Scene extends JFrame {
                     JOptionPane.showMessageDialog(Scene.this,
                             "Файл '" + fileChooser.getSelectedFile() +
                                     " ) збережено!");
+                }
+            }
+        });
+        this.jMenuItemImport.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String[] array = new String[]{"A", "B", "C", "D", "E", "F", "G"};
+                File excelFile;
+                FileInputStream fis = null;
+                BufferedInputStream bis = null;
+                XSSFWorkbook workbook = null;
+                fileChooser.setDialogTitle("Відкриття таблиці");
+                int result = fileChooser.showOpenDialog(Scene.this);
+                clearTable();
+                if (result == JFileChooser.APPROVE_OPTION) {
+                    try {
+                        excelFile = fileChooser.getSelectedFile();
+                        fis = new FileInputStream(excelFile);
+                        bis = new BufferedInputStream(fis);
+                        workbook = new XSSFWorkbook(bis);
+                        XSSFSheet excelSheet = workbook.getSheetAt(0);
+
+                        for (int i = 0; i < 7; i++) {
+                            String name = array[i];
+                            Scene.this.model.addColumn(name);
+                        }
+
+                        for (int row = 0; row < excelSheet.getLastRowNum()+1; row++) {
+                            XSSFRow excelRow = excelSheet.getRow(row);
+
+                            Scene.this.model.addRow(new Vector());
+
+                            XSSFCell A;
+                            for (int i = 0; i < excelSheet.getRow(row).getPhysicalNumberOfCells(); i++) {
+                                A = excelRow.getCell(i);
+                                A = checkCell(A);
+                                setSingleRaw(A, row, i);
+                            }
+
+                        }
+                        JOptionPane.showMessageDialog(null, "Вдале відкриття файлу!");
+                    } catch (IOException iOException) {
+                        JOptionPane.showMessageDialog(null, iOException.getMessage());
+                    } finally {
+                        try {
+                            if (fis != null) {
+                                fis.close();
+                            }
+                            if (bis != null) {
+                                bis.close();
+                            }
+                            if (workbook != null) {
+                                workbook.close();
+                            }
+                        } catch (IOException iOException) {
+                            JOptionPane.showMessageDialog(null, iOException.getMessage());
+                        }
+                    }
                 }
             }
         });
@@ -161,12 +229,25 @@ public class Scene extends JFrame {
         this.setVisible(true);
     }
 
+    private void clearTable(){
+        model.setColumnCount(0);
+    }
+
+    private XSSFCell checkCell(XSSFCell cell){
+        if (cell.getCellType() == CellType.BLANK){
+            cell.setCellValue(0);
+        }
+        return cell;
+    }
+
+    private void setSingleRaw(XSSFCell cell, int row, int column){
+        table.setValueAt(cell.getNumericCellValue(), row, column);
+    }
+
     private void initFileChooser() {
         this.fileChooser = new JFileChooser();
-        FileNameExtensionFilter filter = new FileNameExtensionFilter(
-                "Текстовий документ", "*.TXT");
-        fileChooser.setFileFilter(filter);
-        fileChooser.setDialogTitle("Сохранение файла");
+        FileNameExtensionFilter fnef = new FileNameExtensionFilter("EXCEL FILES", "xls", "xlsx", "xlsm");
+        fileChooser.setFileFilter(fnef);
         fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
     }
 
@@ -175,11 +256,14 @@ public class Scene extends JFrame {
         this.jMenu = new JMenu("Файл");
         this.jMenuItemSave = new JMenuItem("Зберегти");
         this.jMenuSetDefaultTable = new JMenuItem("Початкова табл.");
+        this.jMenuItemImport = new JMenuItem("Відкрити");
         this.jMenu.add(jMenuSetDefaultTable);
         this.jMenu.add(jMenuItemSave);
+        this.jMenu.add(jMenuItemImport);
         this.jMenuBar.add(jMenu);
         setJMenuBar(jMenuBar);
     }
+
 
     private void initMainTable() {
         this.model = new DefaultTableModel(this.data, this.columns);
@@ -276,5 +360,6 @@ public class Scene extends JFrame {
         Image icon = Toolkit.getDefaultToolkit().getImage("e:\\Users\\Danil\\Desktop\\KNU2020\\OOP\\Lab1\\src\\main\\resources\\excel.png");
         this.setIconImage(icon);
     }
+
 }
 
