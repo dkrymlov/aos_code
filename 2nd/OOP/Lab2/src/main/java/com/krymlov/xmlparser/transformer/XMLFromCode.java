@@ -3,19 +3,9 @@ package com.krymlov.xmlparser.transformer;
 import com.krymlov.xmlparser.object.Inhabitant;
 
 import java.io.*;
-import java.util.ArrayList;
 import java.util.List;
 
 public class XMLFromCode {
-
-    public static void main(String[] args) {
-        Inhabitant inhabitant1 = Inhabitant.getInstance("Гусак Сергій Васильович", "19", "Факультет кала", "Кафедра кокаина", "10курс", "Петра гвинта 23", "-100");
-        Inhabitant inhabitant2 = Inhabitant.getInstance("Гусак Вася Васильович", "21", "Факультет кала", "Кафедра кофеина", "5курс", "Петра гвинта 26", "-100");
-        List<Inhabitant> list = new ArrayList<>();
-        list.add(inhabitant1);
-        list.add(inhabitant2);
-        XMLFromCode.create("e:\\Users\\Danil\\Desktop\\KNU2020\\OOP\\Lab2\\src\\main\\resources\\tempdb.xml", list);
-    }
 
     public static void create(String resourcesPath, List<Inhabitant> list){
 

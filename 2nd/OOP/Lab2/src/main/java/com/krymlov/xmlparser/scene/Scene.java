@@ -20,9 +20,8 @@ import java.util.Scanner;
 import java.util.Vector;
 
 public class Scene extends JFrame {
-    private final String XSLPATH = "e:\\Users\\Danil\\Desktop\\KNU2020\\OOP\\Lab2\\src\\main\\resources\\db.xsl";
-    private final String XMLPATH = "e:\\Users\\Danil\\Desktop\\KNU2020\\OOP\\Lab2\\src\\main\\resources\\tempdb.xml";
-    private final String RESOURCESPATH = "e:\\Users\\Danil\\Desktop\\KNU2020\\OOP\\Lab2\\src\\main\\resources\\";
+    private final String XSLPATH = "src\\main\\resources\\db.xsl";
+    private final String XMLPATH = "src\\main\\resources\\tempdb.xml";
     private String[] columnNames = new String[]{"Повне ім'я", "Вік", "Факультет", "Кафедра", "Курс", "Адрес" ,"Проплата"};
     private List<Inhabitant> listOfInhabitants;
     private String[] columns = new String[]{};
@@ -63,7 +62,7 @@ public class Scene extends JFrame {
         this.jbtHelp.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                File file = new File("e:\\Users\\Danil\\Desktop\\KNU2020\\OOP\\Lab2\\src\\main\\resources\\help.txt");
+                File file = new File("src\\main\\resources\\help.txt");
                 try {
                     Scanner in = new Scanner(new FileReader(file));
                     StringBuilder sb = new StringBuilder();
@@ -137,7 +136,7 @@ public class Scene extends JFrame {
                     File htmlFile = fileChooser.getSelectedFile();
                     try {
                         Writer writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(htmlFile), "UTF-8"));
-                        XMLFromCode.create("e:\\Users\\Danil\\Desktop\\KNU2020\\OOP\\Lab2\\src\\main\\resources\\tempdb.xml", listOfInhabitants);
+                        XMLFromCode.create("src\\main\\resources\\tempdb.xml", listOfInhabitants);
                         XSLTransformer.transform(XSLPATH, XMLPATH, htmlFile.toString());
                         writer.close();
                     } catch (IOException ioException) {

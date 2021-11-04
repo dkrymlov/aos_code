@@ -10,8 +10,8 @@ public class TestXMLFromCode {
 
     @Test
     public void test1(){
-        String tempdbPath = "e:\\Users\\Danil\\Desktop\\KNU2020\\OOP\\Lab2\\src\\main\\resources\\tempdb.xml";
-        String dbPath = "e:\\Users\\Danil\\Desktop\\KNU2020\\OOP\\Lab2\\src\\main\\resources\\db.xml";
+        String tempdbPath = "src\\main\\resources\\tempdb.xml";
+        String dbPath = "src\\main\\resources\\db.xml";
 
         List<Inhabitant> list = DOMParserXML.parseXML(dbPath, "");
         XMLFromCode.create(tempdbPath, list);

@@ -9,7 +9,8 @@ public class Inhabitant {
     private String homeplace;
     private String payment;
 
-    private Inhabitant(String fullname, String age, String faculty, String cathedra, String grade, String homeplace, String payment) {
+    private Inhabitant(String fullname, String age, String faculty,
+                       String cathedra, String grade, String homeplace, String payment) {
         this.fullname = fullname;
         this.age = age;
         this.faculty = faculty;
@@ -25,13 +26,16 @@ public class Inhabitant {
         return new Inhabitant();
     }
 
-    public static Inhabitant getInstance(String fullname, String age, String faculty, String cathedra, String grade, String homeplace, String payment){
+    public static Inhabitant getInstance(String fullname, String age,
+                                         String faculty, String cathedra,
+                                         String grade, String homeplace, String payment){
         return new Inhabitant(fullname, age, faculty, cathedra, grade, homeplace, payment);
     }
 
     @Override
     public String toString(){
-        return fullname + ", " + age + ", " + faculty + ", " + cathedra + ", " + grade + ", " + homeplace + ", " + payment;
+        return fullname + ", " + age + ", " + faculty + ", "
+                + cathedra + ", " + grade + ", " + homeplace + ", " + payment;
     }
 
     public String getFullname() {

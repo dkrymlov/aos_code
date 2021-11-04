@@ -12,9 +12,9 @@ public class TestXSLTransformer {
 
     @Test
     public void test1(){
-        String pathToXSL = "e:\\Users\\Danil\\Desktop\\KNU2020\\OOP\\Lab2\\src\\main\\resources\\db.xsl";
-        String pathToXML = "e:\\Users\\Danil\\Desktop\\KNU2020\\OOP\\Lab2\\src\\main\\resources\\db.xml";
-        String pathToHTML = "e:\\Users\\Danil\\Desktop\\KNU2020\\OOP\\Lab2\\src\\main\\resources\\output.html";
+        String pathToXSL = "src\\main\\resources\\db.xsl";
+        String pathToXML = "src\\main\\resources\\db.xml";
+        String pathToHTML = "src\\main\\resources\\output.html";
         XSLTransformer.transform(pathToXSL, pathToXML, pathToHTML);
         File actual = new File(pathToHTML);
         File expected = new File("E:\\Users\\Danil\\Desktop\\output.html");
