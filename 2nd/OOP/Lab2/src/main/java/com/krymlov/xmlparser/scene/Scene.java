@@ -2,6 +2,7 @@ package com.krymlov.xmlparser.scene;
 
 import com.krymlov.xmlparser.object.Inhabitant;
 import com.krymlov.xmlparser.parsers.DOMParserXML;
+import com.krymlov.xmlparser.parsers.ParserXML;
 import com.krymlov.xmlparser.parsers.SAXParserXML;
 import com.krymlov.xmlparser.transformer.XMLFromCode;
 import com.krymlov.xmlparser.transformer.XSLTransformer;
@@ -94,10 +95,10 @@ public class Scene extends JFrame {
                 clearTable();
                 String keyword = jTextField.getText();
                 if (SAX){
-                    listOfInhabitants = SAXParserXML.parseXML(selectedFile.toString(), keyword);
+                    listOfInhabitants = ParserXML.parseXML("SAX", selectedFile.toString(), keyword);
                     System.out.println("using sax");
                 }else {
-                    listOfInhabitants = DOMParserXML.parseXML(selectedFile.toString(), keyword);
+                    listOfInhabitants = ParserXML.parseXML("DOM", selectedFile.toString(), keyword);
                     System.out.println("using dom");
                 }
                 addColumns(columnNames);
@@ -117,7 +118,7 @@ public class Scene extends JFrame {
                 if (result == JFileChooser.APPROVE_OPTION) {
                     selectedFile = fileChooser.getSelectedFile();
                     importLabel.setText("       Відкритий файл: " + selectedFile.toString());
-                    listOfInhabitants = DOMParserXML.parseXML(selectedFile.toString(), " ");
+                    listOfInhabitants = ParserXML.parseXML("DOM", selectedFile.toString(), " ");
                     addColumns(columnNames);
                     for (int i = 0; i < listOfInhabitants.size(); i++) {
                         setTable(i);

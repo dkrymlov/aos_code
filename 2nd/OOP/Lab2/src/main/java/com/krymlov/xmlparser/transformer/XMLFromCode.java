@@ -7,6 +7,8 @@ import java.util.List;
 
 public class XMLFromCode {
 
+    private XMLFromCode(){}
+
     public static void create(String resourcesPath, List<Inhabitant> list){
 
         File file = new File(resourcesPath);

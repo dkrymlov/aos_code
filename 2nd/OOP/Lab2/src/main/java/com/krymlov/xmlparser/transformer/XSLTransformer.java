@@ -10,6 +10,8 @@ import java.nio.file.Paths;
 
 public class XSLTransformer {
 
+    private XSLTransformer(){}
+
     public static void transform(String pathToXslFile, String pathToXmlFile, String pathToHtmlFile){
         StreamSource xslStreamSourse = new StreamSource(
                 Paths.get(pathToXslFile).toAbsolutePath().toFile());
