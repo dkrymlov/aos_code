@@ -24,6 +24,8 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 
 import static com.krymlov.excel.calculator.Calculator.*;
 
+
+//App frame
 public class Scene extends JFrame {
     private String[] columns = new String[]{};
     private Object[][] data = new Object[][]{{}};
@@ -47,12 +49,14 @@ public class Scene extends JFrame {
     private JPanel jPanel2;
     private JPanel jPanel3;
 
+    //constructor
     public Scene() {
         this.setTitle("Excel");
         this.setSize(800, 700);
         this.setLocationRelativeTo((Component) null);
         this.setDefaultCloseOperation(3);
         this.jTextField = new JTextField();
+        //init methods
         setMainIcon();
         initButtons();
         initMainTable();
@@ -61,6 +65,7 @@ public class Scene extends JFrame {
         initJPanels();
         this.add(jPanel1, "North");
         this.add(jPanel3, "South");
+        //action listener for button add row
         this.jbtAddRow.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -72,6 +77,7 @@ public class Scene extends JFrame {
                 prepareToExport(table);
             }
         });
+        //action listener for button add column
         this.jbtAddColumn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -80,6 +86,7 @@ public class Scene extends JFrame {
                 prepareToExport(table);
             }
         });
+        //action listener for button del row
         this.jbtDeleteRow.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -89,6 +96,7 @@ public class Scene extends JFrame {
 
             }
         });
+        //action listener for button del column
         this.jbtDeleteColumn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -100,6 +108,7 @@ public class Scene extends JFrame {
 
             }
         });
+        //action listener for button help
         this.jbtHelp.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -119,7 +128,7 @@ public class Scene extends JFrame {
                 }
             }
         });
-
+        //action listener for menu item save
         this.jMenuItemSave.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -134,6 +143,7 @@ public class Scene extends JFrame {
                 }
             }
         });
+        //action listener for menu item import
         this.jMenuItemImport.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -192,6 +202,7 @@ public class Scene extends JFrame {
                 }
             }
         });
+        //action listener for button calculate
         this.jbtCalculate.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -211,6 +222,7 @@ public class Scene extends JFrame {
                 }
             }
         });
+        //action listener for menu item set default table
         this.jMenuSetDefaultTable.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -229,6 +241,7 @@ public class Scene extends JFrame {
         this.setVisible(true);
     }
 
+    //clear table method
     private void clearTable(){
         model.setColumnCount(0);
     }
@@ -244,6 +257,7 @@ public class Scene extends JFrame {
         table.setValueAt(cell.getNumericCellValue(), row, column);
     }
 
+    //init method for file chooser
     private void initFileChooser() {
         this.fileChooser = new JFileChooser();
         FileNameExtensionFilter fnef = new FileNameExtensionFilter("EXCEL FILES", "xls", "xlsx", "xlsm");
@@ -251,6 +265,7 @@ public class Scene extends JFrame {
         fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
     }
 
+    //init method for menu bar
     private void initMenuBar() {
         this.jMenuBar = new JMenuBar();
         this.jMenu = new JMenu("Файл");
@@ -264,7 +279,7 @@ public class Scene extends JFrame {
         setJMenuBar(jMenuBar);
     }
 
-
+    //init method for main table
     private void initMainTable() {
         this.model = new DefaultTableModel(this.data, this.columns);
         this.table = new JTable(this.model);
@@ -279,6 +294,7 @@ public class Scene extends JFrame {
         }
     }
 
+    //init method for buttons
     private void initButtons() {
         Icon iconCalc = new ImageIcon("e:\\Users\\Danil\\Desktop\\KNU2020\\OOP\\Lab1\\src\\main\\resources\\calc.png");
         Icon iconAdd = new ImageIcon("e:\\Users\\Danil\\Desktop\\KNU2020\\OOP\\Lab1\\src\\main\\resources\\plus.png");
@@ -298,6 +314,7 @@ public class Scene extends JFrame {
         setButtonStyle(iconDel, jbtDeleteColumn,"#e1e1e1", "Arial", 16);
     }
 
+    //init method for JPanels
     private void initJPanels() {
         jPanel1 = new JPanel(new GridLayout(1, 2));
         jPanel1.setPreferredSize(new Dimension(800, 30));
@@ -314,6 +331,8 @@ public class Scene extends JFrame {
         jPanel3.add(jPanel2, "South");
     }
 
+    //export to excel method
+    //table to convert, file to write
     private void exportToExcel(JTable table, File file) {
         try {
             TableModel model = table.getModel();
@@ -339,6 +358,7 @@ public class Scene extends JFrame {
         }
     }
 
+    //method to set cells not null
     private void prepareToExport(JTable table) {
         for (int i = 0; i < table.getColumnCount(); i++) {
             for (int j = 0; j < table.getRowCount(); j++) {
@@ -349,6 +369,7 @@ public class Scene extends JFrame {
         }
     }
 
+    //method to set button style
     private void setButtonStyle(Icon icon, JButton button, String hashcolor, String font, int fontSize) {
         button.setBackground(Color.decode(hashcolor));
         button.setIcon(icon);
@@ -356,6 +377,7 @@ public class Scene extends JFrame {
         button.setFont(new Font(font, Font.PLAIN, fontSize));
     }
 
+    //set main ico method
     private void setMainIcon() {
         Image icon = Toolkit.getDefaultToolkit().getImage("e:\\Users\\Danil\\Desktop\\KNU2020\\OOP\\Lab1\\src\\main\\resources\\excel.png");
         this.setIconImage(icon);

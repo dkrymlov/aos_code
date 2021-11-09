@@ -4,6 +4,7 @@ import com.krymlov.excel.calculator.Calculator;
 
 import java.util.List;
 
+//buffer of lexemes
 public class LexemeBuffer {
     private int pos;
 

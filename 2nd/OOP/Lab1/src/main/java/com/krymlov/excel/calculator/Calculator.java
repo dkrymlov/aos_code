@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+//String arithmetical expression value parser
 public class Calculator {
 
     private static HashMap<String, IFunction> functionMap;
@@ -14,6 +15,7 @@ public class Calculator {
         table = table1;
     }
 
+    //function map(lambda)
     private static HashMap<String, IFunction> getFunctionMap() {
         HashMap<String, IFunction> functionTable = new HashMap<>();
         functionTable.put("sqrt", args -> {
@@ -88,6 +90,7 @@ public class Calculator {
         return functionTable;
     }
 
+    //class lexeme
     public static class Lexeme {
         LexemeType type;
         String value;
@@ -110,7 +113,6 @@ public class Calculator {
                     '}';
         }
     }
-
 
     public static List<Lexeme> lexAnalyze(String expText) {
         ArrayList<Lexeme> lexemes = new ArrayList<>();
