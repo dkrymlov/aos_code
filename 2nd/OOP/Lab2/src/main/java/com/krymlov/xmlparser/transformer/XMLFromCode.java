@@ -5,10 +5,14 @@ import com.krymlov.xmlparser.object.Inhabitant;
 import java.io.*;
 import java.util.List;
 
+//Class Parse Java array of entities to XML database by template
 public class XMLFromCode {
 
+    //Constructor
     private XMLFromCode(){}
 
+    //method to create xml file
+    //resourcesPath - path to empty xml file, list - list of entities
     public static void create(String resourcesPath, List<Inhabitant> list){
 
         File file = new File(resourcesPath);

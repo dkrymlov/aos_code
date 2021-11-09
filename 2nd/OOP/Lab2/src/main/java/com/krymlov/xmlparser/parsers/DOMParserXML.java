@@ -12,10 +12,14 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+//class DOM parser
 public class DOMParserXML{
 
+    //constructor
     private DOMParserXML(){}
 
+    //static method to get List of Entities
+    //file path - path to xml file, keyword - string to find in xml
     public static List<Inhabitant> parseXML(String filePath, String keyword){
         DocumentBuilderFactory factory;
         DocumentBuilder builder;
@@ -42,6 +46,7 @@ public class DOMParserXML{
         return inhabitantList;
     }
 
+    //find method
     private static Inhabitant findByKeyword(Element element, String keyword){
         if (element.getElementsByTagName("fullname").item(0).getTextContent().contains(keyword)){
             return setInhabitant(element);
@@ -60,6 +65,7 @@ public class DOMParserXML{
         }else return null;
     }
 
+    //method to set inhabitant values
     private static Inhabitant setInhabitant(Element element){
         return Inhabitant.getInstance(element.getElementsByTagName("fullname").item(0).getTextContent(),
                 element.getElementsByTagName("age").item(0).getTextContent(),

@@ -1,14 +1,23 @@
 package com.krymlov.xmlparser.object;
 
+//entity in database
 public class Inhabitant {
+    //name
     private String fullname;
+    //age
     private String age;
+    //faculty
     private String faculty;
+    //cathedra
     private String cathedra;
+    //grade
     private String grade;
+    //home adress
     private String homeplace;
+    //payment
     private String payment;
 
+    //constructor
     private Inhabitant(String fullname, String age, String faculty,
                        String cathedra, String grade, String homeplace, String payment) {
         this.fullname = fullname;
@@ -20,12 +29,15 @@ public class Inhabitant {
         this.payment = payment;
     }
 
+    //default constructor
     private Inhabitant(){}
 
+    //factory method no params to get instance
     public static Inhabitant getInstance(){
         return new Inhabitant();
     }
 
+    //factory method with params to get instance
     public static Inhabitant getInstance(String fullname, String age,
                                          String faculty, String cathedra,
                                          String grade, String homeplace, String payment){
@@ -38,6 +50,7 @@ public class Inhabitant {
                 + cathedra + ", " + grade + ", " + homeplace + ", " + payment;
     }
 
+    //getters and setters
     public String getFullname() {
         return fullname;
     }

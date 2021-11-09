@@ -8,10 +8,14 @@ import javax.xml.transform.stream.StreamSource;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
+//Class to transform XML to HTML
 public class XSLTransformer {
 
+    //Constructor
     private XSLTransformer(){}
 
+    //Transform method
+    //pathToXslFile, pathToXmlFile, pathToHtmlFile
     public static void transform(String pathToXslFile, String pathToXmlFile, String pathToHtmlFile){
         StreamSource xslStreamSourse = new StreamSource(
                 Paths.get(pathToXslFile).toAbsolutePath().toFile());

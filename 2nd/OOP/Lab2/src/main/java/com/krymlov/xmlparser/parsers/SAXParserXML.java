@@ -11,12 +11,16 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+//Class Sax Parser
 public class SAXParserXML{
 
     private static List<Inhabitant> inhabitantList;
 
+    //Constructor
     private SAXParserXML(){}
 
+    //parse method
+    //file path - path to xml, keyword - string to find
     public static List<Inhabitant> parseXML(String filePath, String keyword){
         inhabitantList = null;
 
@@ -42,6 +46,7 @@ public class SAXParserXML{
         return listToReturn;
     }
 
+    //Sax handler with override methods
     private static class XMLHandler extends DefaultHandler {
         boolean foundFullname = false;
         boolean foundAge = false;
@@ -140,6 +145,7 @@ public class SAXParserXML{
         }
     }
 
+    //find keyword method
     private static boolean containsKeyword(Inhabitant inhabitant, String keyword){
         if (inhabitant.toString().contains(keyword)){
             return true;

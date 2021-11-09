@@ -1,9 +1,7 @@
 package com.krymlov.xmlparser.scene;
 
 import com.krymlov.xmlparser.object.Inhabitant;
-import com.krymlov.xmlparser.parsers.DOMParserXML;
 import com.krymlov.xmlparser.parsers.ParserXML;
-import com.krymlov.xmlparser.parsers.SAXParserXML;
 import com.krymlov.xmlparser.transformer.XMLFromCode;
 import com.krymlov.xmlparser.transformer.XSLTransformer;
 
@@ -20,6 +18,7 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.Vector;
 
+//Main app Frame
 public class Scene extends JFrame {
     private final String XSLPATH = "src\\main\\resources\\db.xsl";
     private final String XMLPATH = "src\\main\\resources\\tempdb.xml";
@@ -45,7 +44,9 @@ public class Scene extends JFrame {
     private File selectedFile;
     private boolean SAX;
 
+    //Constructor
     public Scene(){
+        //init methods
         initOther();
         initFileChooser();
         initMenuBar();
@@ -60,6 +61,7 @@ public class Scene extends JFrame {
         this.setResizable(true);
         this.setVisible(true);
 
+        //action listener for button help
         this.jbtHelp.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -79,6 +81,7 @@ public class Scene extends JFrame {
                 }
             }
         });
+        //item listener for checkbox
         this.checkBox.addItemListener(new ItemListener() {
             @Override
             public void itemStateChanged(ItemEvent e) {
@@ -89,6 +92,7 @@ public class Scene extends JFrame {
                 }
             }
         });
+        //action listener for button search
         this.jbtSearch.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -107,6 +111,7 @@ public class Scene extends JFrame {
                 }
             }
         });
+        //action listener for menu item open
         this.jMenuItemOpen.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -126,6 +131,7 @@ public class Scene extends JFrame {
                 }
             }
         });
+        //action listener for menu item save
         this.jMenuItemSave.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -162,20 +168,24 @@ public class Scene extends JFrame {
         table.setValueAt(listOfInhabitants.get(index).getPayment(), index, 6);
     }
 
+    //init method for file chooser
     private void initFileChooser() {
         this.fileChooser = new JFileChooser();
         fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
     }
 
+    //clear table method
     private void clearTable(){
         model.setColumnCount(0);
         model.setRowCount(0);
     }
 
+    //method to add single row
     private void addRow(){
             Scene.this.model.addRow(new Vector());
     }
 
+    //method to add columns
     private void addColumns(String[] array){
         for (int i = 0; i < array.length; i++) {
             String name = array[i];
@@ -183,11 +193,13 @@ public class Scene extends JFrame {
         }
     }
 
+    //method to init buttons
     private void initButtons(){
         jbtHelp = new JButton("Допомога");
         jbtSearch = new JButton("Пошук");
     }
 
+    //method to init Jpanels
     private void initJPanels(){
         jPanel1 = new JPanel(new GridLayout(1, 3));
         jPanel2 = new JPanel(new GridLayout(1,2));
@@ -205,6 +217,7 @@ public class Scene extends JFrame {
         jPanel3.add(jPanel2);
     }
 
+    //method to init menuBar
     private void initMenuBar(){
         jMenuBar = new JMenuBar();
 
@@ -220,6 +233,7 @@ public class Scene extends JFrame {
         setJMenuBar(jMenuBar);
     }
 
+    //method to init JTable
     private void initMainTable(){
         this.model = new DefaultTableModel(this.data, this.columns);
         this.table = new JTable(this.model);
@@ -229,6 +243,7 @@ public class Scene extends JFrame {
         this.table.setColumnSelectionAllowed(false);
     }
 
+    //method to init some other components
     private void initOther(){
         checkBox = new JCheckBox("DOM/SAX");
         jTextField = new JTextField();
