@@ -2,113 +2,151 @@ package com.krymlov.benchmark.tests;
 
 public class PlusTest implements IOpTest {
 
+    public static void main(String[] args) {
+        PlusTest plusTest = new PlusTest();
+        System.out.println(plusTest.testByte());
+        System.out.println(plusTest.testShort());
+        System.out.println(plusTest.testInt());
+        System.out.println(plusTest.testLong());
+        System.out.println(plusTest.testFloat());
+        System.out.println(plusTest.testDouble());
+    }
+
     public PlusTest() {
     }
 
     //returns number of operations per 1 sec
     @Override
     public long testByte(){
+        System.out.println("byte");
         long operations = 0;
-        byte number = Byte.MIN_VALUE;
-        long time = System.currentTimeMillis()+1000;
+        byte a;
+        byte b = 2;
+        byte c = 3;
+        byte d = 1;
+        long time = System.currentTimeMillis()+100;
         while (System.currentTimeMillis() < time){
-            if (number >= Byte.MAX_VALUE-10){
-                number = Byte.MIN_VALUE;
-            }
-            number += (1 + (Math.random() * 3));
-            operations++;
+            a = (byte) (c + b);
+            b = (byte) (c + a);
+            c = (byte) (d + b);
+            d = (byte) (a + b);
+            operations += 4;
         }
-        return operations;
+        return operations*10;
     }
 
     @Override
     public long testShort(){
+        System.out.println("short");
         long operations = 0;
-        short number = Short.MIN_VALUE;
-        long time = System.currentTimeMillis()+1000;
+        short a;
+        short b = 2;
+        short c = 3;
+        short d = 5;
+        long time = System.currentTimeMillis()+100;
         while (System.currentTimeMillis() < time){
-            if (number >= Short.MAX_VALUE-10){
-                number = Short.MIN_VALUE;
-            }
-            number += (1 + (Math.random() * 3));
-            operations++;
+            a = (short) (c + b);
+            b = (short) (c + a);
+            c = (short) (d + b);
+            d = (short) (a + b);
+            operations += 4;
         }
-        return operations;
+        return operations*10;
     }
 
     @Override
     public long testInt(){
+        System.out.println("int");
         long operations = 0;
-        int number = Integer.MIN_VALUE;
-        long time = System.currentTimeMillis()+1000;
+        int a;
+        int b = 2;
+        int c = 3;
+        int d = 5;
+        long time = System.currentTimeMillis()+100;
         while (System.currentTimeMillis() < time){
-            if (number >= Integer.MAX_VALUE-10){
-                number = Integer.MIN_VALUE;
-            }
-            number += (1 + (Math.random() * 3));
-            operations++;
+            a = (c + b);
+            b = (c + a);
+            c = (d + b);
+            d = (a + b);
+            operations += 4;
         }
-        return operations;
+        return operations*10;
     }
 
     @Override
     public long testLong(){
+        System.out.println("long");
         long operations = 0;
-        long number = Long.MIN_VALUE;
-        long time = System.currentTimeMillis()+1000;
+        long a;
+        long b = 2;
+        long c = 3;
+        long d = 5;
+        long time = System.currentTimeMillis()+100;
         while (System.currentTimeMillis() < time){
-            if (number >= Long.MAX_VALUE-10){
-                number = Long.MIN_VALUE;
-            }
-            number += (1 + (Math.random() * 3));
-            operations++;
+            a = (c + b);
+            b = (c + a);
+            c = (d + b);
+            d = (a + b);
+            operations += 4;
         }
-        return operations;
+        return operations*10;
     }
 
     @Override
     public long testChar(){
+        System.out.println("char");
         long operations = 0;
-        char number = Character.MIN_VALUE;
-        long time = System.currentTimeMillis()+1000;
+        char a;
+        char b = 2;
+        char c = 3;
+        char d = 5;
+        long time = System.currentTimeMillis()+100;
         while (System.currentTimeMillis() < time){
-            if (number >= Character.MAX_VALUE-10){
-                number = Character.MIN_VALUE;
-            }
-            number += (1 + (Math.random() * 3));
-            operations++;
+            a = (char) (c + b);
+            b = (char) (c + a);
+            c = (char) (d + b);
+            d = (char) (a + b);
+            operations += 4;
         }
-        return operations;
+        return operations*10;
     }
 
     @Override
     public long testFloat(){
+        System.out.println("float");
         long operations = 0;
-        float number = Float.MIN_VALUE;
-        long time = System.currentTimeMillis()+1000;
+        float a;
+        float b = 2.5F;
+        float c = 3.2F;
+        float d = 5.1F;
+        long time = System.currentTimeMillis()+100;
         while (System.currentTimeMillis() < time){
-            if (number >= Float.MAX_VALUE-10){
-                number = Float.MIN_VALUE;
-            }
-            number += (1 + (Math.random() * 3));
-            operations++;
+            a = (c + b);
+            b = (c + a);
+            c = (d + b);
+            d = (a + b);
+            operations += 4;
         }
-        return operations;
+        return operations*10;
     }
 
     @Override
     public long testDouble(){
+        System.out.println("double");
         long operations = 0;
-        double number = Double.MIN_VALUE;
-        long time = System.currentTimeMillis()+1000;
+        double a;
+        double b = 2.52;
+        double c = 3.23;
+        double d = 5.15;
+        long time = System.currentTimeMillis()+100;
         while (System.currentTimeMillis() < time){
-            if (number >= Double.MAX_VALUE-10){
-                number = Double.MIN_VALUE;
-            }
-            number += (1 + (Math.random() * 3));
-            operations++;
+            a = (c + b);
+            b = (c + a);
+            c = (d + b);
+            d = (a + b);
+            operations += 4;
         }
-        return operations;
+        return operations*10;
     }
 
     @Override
@@ -116,25 +154,18 @@ public class PlusTest implements IOpTest {
         long result = 0;
         if (type.equals("byte")){
             result = testByte();
-            System.out.println("byte");
         }else if(type.equals("short")){
             result = testShort();
-            System.out.println("short");
         }else if(type.equals("int")){
             result = testInt();
-            System.out.println("int");
         }else if(type.equals("long")){
             result = testLong();
-            System.out.println("long");
         }else if(type.equals("char")){
             result = testChar();
-            System.out.println("char");
         }else if(type.equals("float")){
             result = testFloat();
-            System.out.println("float");
         }else if(type.equals("double")){
             result = testDouble();
-            System.out.println("double");
         }
         return result;
     }

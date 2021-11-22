@@ -2,113 +2,151 @@ package com.krymlov.benchmark.tests;
 
 public class DividingTest implements IOpTest{
 
+    public static void main(String[] args) {
+        DividingTest dividingTest = new DividingTest();
+        System.out.println(dividingTest.testByte());
+        System.out.println(dividingTest.testShort());
+        System.out.println(dividingTest.testInt());
+        System.out.println(dividingTest.testLong());
+        System.out.println(dividingTest.testFloat());
+        System.out.println(dividingTest.testDouble());
+    }
+
     public DividingTest() {
     }
 
     //returns number of operations per 1 sec
     @Override
     public long testByte(){
+        System.out.println("byte");
         long operations = 0;
-        byte number = Byte.MAX_VALUE;
-        long time = System.currentTimeMillis()+1000;
+        byte a;
+        byte b = 1;
+        byte c = 3;
+        byte d = 121;
+        long time = System.currentTimeMillis()+100;
         while (System.currentTimeMillis() < time){
-            if (number <= 1){
-                number = Byte.MAX_VALUE;
-            }
-            number /= (1 + (Math.random() * 3));
-            operations++;
+            a = (byte) (c / b);
+            b = (byte) (c / a);
+            c = (byte) (d / b);
+            d = (byte) (a / b);
+            operations += 4;
         }
-        return operations;
+        return operations*10;
     }
 
     @Override
     public long testShort(){
+        System.out.println("short");
         long operations = 0;
-        short number = Short.MAX_VALUE;
-        long time = System.currentTimeMillis()+1000;
+        short a;
+        short b = 1;
+        short c = 3;
+        short d = 121;
+        long time = System.currentTimeMillis()+100;
         while (System.currentTimeMillis() < time){
-            if (number <= 1){
-                number = Short.MAX_VALUE;
-            }
-            number /= (1 + (Math.random() * 3));
-            operations++;
+            a = (short) (c / b);
+            b = (short) (c / a);
+            c = (short) (d / b);
+            d = (short) (a / b);
+            operations += 4;
         }
-        return operations;
+        return operations*10;
     }
 
     @Override
     public long testInt(){
+        System.out.println("int");
         long operations = 0;
-        int number = Integer.MAX_VALUE;
-        long time = System.currentTimeMillis()+1000;
+        int a;
+        int b = 1;
+        int c = 3;
+        int d = 121;
+        long time = System.currentTimeMillis()+100;
         while (System.currentTimeMillis() < time){
-            if (number <= 1){
-                number = Integer.MAX_VALUE;
-            }
-            number /= (1 + (Math.random() * 3));
-            operations++;
+            a = (c / b);
+            b = (c / a);
+            c = (d / b);
+            d = (a / b);
+            operations += 4;
         }
-        return operations;
+        return operations*10;
     }
 
     @Override
     public long testLong(){
+        System.out.println("long");
         long operations = 0;
-        long number = Long.MAX_VALUE;
-        long time = System.currentTimeMillis()+1000;
+        long a;
+        long b = 1;
+        long c = 3;
+        long d = 121;
+        long time = System.currentTimeMillis()+100;
         while (System.currentTimeMillis() < time){
-            if (number <= 1){
-                number = Long.MAX_VALUE;
-            }
-            number /= (1 + (Math.random() * 3));
-            operations++;
+            a = (c / b);
+            b = (c / a);
+            c = (d / b);
+            d = (a / b);
+            operations += 4;
         }
-        return operations;
+        return operations*10;
     }
 
     @Override
     public long testChar(){
+        System.out.println("char");
         long operations = 0;
-        char number = Character.MAX_VALUE;
-        long time = System.currentTimeMillis()+1000;
+        char a;
+        char b = 1;
+        char c = 3;
+        char d = 121;
+        long time = System.currentTimeMillis()+100;
         while (System.currentTimeMillis() < time){
-            if (number <= 1){
-                number = Character.MAX_VALUE;
-            }
-            number /= (1 + (Math.random() * 3));
-            operations++;
+            a = (char) (c / b);
+            b = (char) (c / a);
+            c = (char) (d / b);
+            d = (char) (a / b);
+            operations += 4;
         }
-        return operations;
+        return operations*10;
     }
 
     @Override
     public long testFloat(){
+        System.out.println("float");
         long operations = 0;
-        float number = Float.MAX_VALUE;
-        long time = System.currentTimeMillis()+1000;
+        float a;
+        float b = 1.2F;
+        float c = 3.1F;
+        float d = 121.7F;
+        long time = System.currentTimeMillis()+100;
         while (System.currentTimeMillis() < time){
-            if (number <= 1){
-                number = Float.MAX_VALUE;
-            }
-            number /= (1 + (Math.random() * 3));
-            operations++;
+            a = (c / b);
+            b = (c / a);
+            c = (d / b);
+            d = (a / b);
+            operations += 4;
         }
-        return operations;
+        return operations*10;
     }
 
     @Override
     public long testDouble(){
+        System.out.println("double");
         long operations = 0;
-        double number = Double.MAX_VALUE;
-        long time = System.currentTimeMillis()+1000;
+        double a;
+        double b = 1.23D;
+        double c = 3.14F;
+        double d = 121.01F;
+        long time = System.currentTimeMillis()+100;
         while (System.currentTimeMillis() < time){
-            if (number <= 1){
-                number = Double.MAX_VALUE;
-            }
-            number /= (1 + (Math.random() * 3));
-            operations++;
+            a = (c / b);
+            b = (c / a);
+            c = (d / b);
+            d = (a / b);
+            operations += 4;
         }
-        return operations;
+        return operations*10;
     }
 
     @Override
