@@ -75,7 +75,6 @@ public class Scene extends JFrame {
                     System.out.println(operationsList.get(i));
                 }
 
-
                 for (int i = 0; i < NUMOFTYPES; i++) {
                     addRow(opArray[0], typeArray[i], operationsList.get(i), percentList.get(i));
                 }

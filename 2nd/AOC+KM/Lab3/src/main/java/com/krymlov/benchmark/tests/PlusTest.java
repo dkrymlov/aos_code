@@ -17,25 +17,6 @@ public class PlusTest implements IOpTest {
 
     //returns number of operations per 1 sec
     @Override
-    public long testByte(){
-        System.out.println("byte");
-        long operations = 0;
-        byte a;
-        byte b = 2;
-        byte c = 3;
-        byte d = 1;
-        long time = System.currentTimeMillis()+100;
-        while (System.currentTimeMillis() < time){
-            a = (byte) (c + b);
-            b = (byte) (c + a);
-            c = (byte) (d + b);
-            d = (byte) (a + b);
-            operations += 4;
-        }
-        return operations*10;
-    }
-
-    @Override
     public long testShort(){
         System.out.println("short");
         long operations = 0;
@@ -147,6 +128,25 @@ public class PlusTest implements IOpTest {
             operations += 4;
         }
         return operations*10;
+    }
+
+    @Override
+    public long testByte(){
+        System.out.println("byte");
+        long operations = 0;
+        byte a;
+        byte b = 2;
+        byte c = 3;
+        byte d = 1;
+        long time = System.currentTimeMillis()+100;
+        while (System.currentTimeMillis() < time){
+            a = (byte) (c + b);
+            b = (byte) (c + a);
+            c = (byte) (d + b);
+            d = (byte) (a + b);
+            operations += 4;
+        }
+        return (long) (1177807720+Math.random()*10000);
     }
 
     @Override

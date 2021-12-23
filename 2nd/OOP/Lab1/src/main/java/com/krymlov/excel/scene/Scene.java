@@ -2,11 +2,8 @@ package com.krymlov.excel.scene;
 
 import com.krymlov.excel.calculator.Calculator;
 import com.krymlov.excel.calculator.LexemeBuffer;
-import org.apache.poi.hssf.usermodel.HSSFSheet;
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.*;
-
 import java.awt.*;
 import java.awt.Color;
 import java.awt.Font;
@@ -176,6 +173,7 @@ public class Scene extends JFrame {
                             XSSFCell A;
                             for (int i = 0; i < excelSheet.getRow(row).getPhysicalNumberOfCells(); i++) {
                                 A = excelRow.getCell(i);
+                                //A.setCellValue(A.getNumericCellValue()+1);
                                 A = checkCell(A);
                                 setSingleRaw(A, row, i);
                             }
@@ -346,7 +344,7 @@ public class Scene extends JFrame {
 
             for (int i = 0; i < model.getRowCount(); i++) {
                 for (int j = 0; j < model.getColumnCount(); j++) {
-                    excel.write(model.getValueAt(i, j).toString() + "\t");
+                    excel.write(model.getValueAt(i,j) + "\t");
                 }
                 excel.write("\n");
             }
@@ -364,7 +362,14 @@ public class Scene extends JFrame {
             for (int j = 0; j < table.getRowCount(); j++) {
                 if (table.getValueAt(j, i) == null) {
                     table.setValueAt("", j, i);
-                }
+                }/*else {
+                    if ("".equals(table.getValueAt(j, i).toString())){
+                        System.out.println("ok");
+                    }else{
+                        Integer value = Integer.parseInt(table.getValueAt(j,i).toString());
+                        table.setValueAt(value+1, j,i);
+                    }
+                }*/
             }
         }
     }
