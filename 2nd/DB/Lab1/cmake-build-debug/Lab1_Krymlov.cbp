@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6"/>
+	<Project>
+		<Option title="Lab1_Krymlov"/>
+		<Option makefile_is_custom="1"/>
+		<Option compiler="gcc"/>
+		<Option virtualFolders="CMake Files\;"/>
+		<Build>
+			<Target title="all">
+				<Option working_dir="E:/Users/Danil/Desktop/KNU2020/GitKNU/knu-projects/2nd/DB/Lab1/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="D:/Development/soft/MinGW2017w64/mingw64/bin/mingw32-make.exe -f &quot;E:/Users/Danil/Desktop/KNU2020/GitKNU/knu-projects/2nd/DB/Lab1/cmake-build-debug/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="D:/Development/soft/MinGW2017w64/mingw64/bin/mingw32-make.exe -f &quot;E:/Users/Danil/Desktop/KNU2020/GitKNU/knu-projects/2nd/DB/Lab1/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="D:/Development/soft/MinGW2017w64/mingw64/bin/mingw32-make.exe -f &quot;E:/Users/Danil/Desktop/KNU2020/GitKNU/knu-projects/2nd/DB/Lab1/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="D:/Development/soft/MinGW2017w64/mingw64/bin/mingw32-make.exe -f &quot;E:/Users/Danil/Desktop/KNU2020/GitKNU/knu-projects/2nd/DB/Lab1/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="Lab1_Krymlov">
+				<Option output="E:/Users/Danil/Desktop/KNU2020/GitKNU/knu-projects/2nd/DB/Lab1/cmake-build-debug/Lab1_Krymlov.exe" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="E:/Users/Danil/Desktop/KNU2020/GitKNU/knu-projects/2nd/DB/Lab1/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="E:/Users/Danil/Desktop/KNU2020/GitKNU/knu-projects/2nd/DB/Lab1/."/>
+					<Add directory="D:/Development/soft/MinGW2017w64/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/8.1.0/include"/>
+					<Add directory="D:/Development/soft/MinGW2017w64/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/8.1.0/include-fixed"/>
+					<Add directory="D:/Development/soft/MinGW2017w64/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/8.1.0/../../../../x86_64-w64-mingw32/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="D:/Development/soft/MinGW2017w64/mingw64/bin/mingw32-make.exe -f &quot;E:/Users/Danil/Desktop/KNU2020/GitKNU/knu-projects/2nd/DB/Lab1/cmake-build-debug/Makefile&quot;  VERBOSE=1 Lab1_Krymlov"/>
+					<CompileFile command="D:/Development/soft/MinGW2017w64/mingw64/bin/mingw32-make.exe -f &quot;E:/Users/Danil/Desktop/KNU2020/GitKNU/knu-projects/2nd/DB/Lab1/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="D:/Development/soft/MinGW2017w64/mingw64/bin/mingw32-make.exe -f &quot;E:/Users/Danil/Desktop/KNU2020/GitKNU/knu-projects/2nd/DB/Lab1/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="D:/Development/soft/MinGW2017w64/mingw64/bin/mingw32-make.exe -f &quot;E:/Users/Danil/Desktop/KNU2020/GitKNU/knu-projects/2nd/DB/Lab1/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="Lab1_Krymlov/fast">
+				<Option output="E:/Users/Danil/Desktop/KNU2020/GitKNU/knu-projects/2nd/DB/Lab1/cmake-build-debug/Lab1_Krymlov.exe" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="E:/Users/Danil/Desktop/KNU2020/GitKNU/knu-projects/2nd/DB/Lab1/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="E:/Users/Danil/Desktop/KNU2020/GitKNU/knu-projects/2nd/DB/Lab1/."/>
+					<Add directory="D:/Development/soft/MinGW2017w64/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/8.1.0/include"/>
+					<Add directory="D:/Development/soft/MinGW2017w64/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/8.1.0/include-fixed"/>
+					<Add directory="D:/Development/soft/MinGW2017w64/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/8.1.0/../../../../x86_64-w64-mingw32/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="D:/Development/soft/MinGW2017w64/mingw64/bin/mingw32-make.exe -f &quot;E:/Users/Danil/Desktop/KNU2020/GitKNU/knu-projects/2nd/DB/Lab1/cmake-build-debug/Makefile&quot;  VERBOSE=1 Lab1_Krymlov/fast"/>
+					<CompileFile command="D:/Development/soft/MinGW2017w64/mingw64/bin/mingw32-make.exe -f &quot;E:/Users/Danil/Desktop/KNU2020/GitKNU/knu-projects/2nd/DB/Lab1/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="D:/Development/soft/MinGW2017w64/mingw64/bin/mingw32-make.exe -f &quot;E:/Users/Danil/Desktop/KNU2020/GitKNU/knu-projects/2nd/DB/Lab1/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="D:/Development/soft/MinGW2017w64/mingw64/bin/mingw32-make.exe -f &quot;E:/Users/Danil/Desktop/KNU2020/GitKNU/knu-projects/2nd/DB/Lab1/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="edit_cache">
+				<Option working_dir="E:/Users/Danil/Desktop/KNU2020/GitKNU/knu-projects/2nd/DB/Lab1/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="D:/Development/soft/MinGW2017w64/mingw64/bin/mingw32-make.exe -f &quot;E:/Users/Danil/Desktop/KNU2020/GitKNU/knu-projects/2nd/DB/Lab1/cmake-build-debug/Makefile&quot;  VERBOSE=1 edit_cache"/>
+					<CompileFile command="D:/Development/soft/MinGW2017w64/mingw64/bin/mingw32-make.exe -f &quot;E:/Users/Danil/Desktop/KNU2020/GitKNU/knu-projects/2nd/DB/Lab1/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="D:/Development/soft/MinGW2017w64/mingw64/bin/mingw32-make.exe -f &quot;E:/Users/Danil/Desktop/KNU2020/GitKNU/knu-projects/2nd/DB/Lab1/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="D:/Development/soft/MinGW2017w64/mingw64/bin/mingw32-make.exe -f &quot;E:/Users/Danil/Desktop/KNU2020/GitKNU/knu-projects/2nd/DB/Lab1/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="rebuild_cache">
+				<Option working_dir="E:/Users/Danil/Desktop/KNU2020/GitKNU/knu-projects/2nd/DB/Lab1/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="D:/Development/soft/MinGW2017w64/mingw64/bin/mingw32-make.exe -f &quot;E:/Users/Danil/Desktop/KNU2020/GitKNU/knu-projects/2nd/DB/Lab1/cmake-build-debug/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
+					<CompileFile command="D:/Development/soft/MinGW2017w64/mingw64/bin/mingw32-make.exe -f &quot;E:/Users/Danil/Desktop/KNU2020/GitKNU/knu-projects/2nd/DB/Lab1/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="D:/Development/soft/MinGW2017w64/mingw64/bin/mingw32-make.exe -f &quot;E:/Users/Danil/Desktop/KNU2020/GitKNU/knu-projects/2nd/DB/Lab1/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="D:/Development/soft/MinGW2017w64/mingw64/bin/mingw32-make.exe -f &quot;E:/Users/Danil/Desktop/KNU2020/GitKNU/knu-projects/2nd/DB/Lab1/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+		</Build>
+		<Unit filename="E:/Users/Danil/Desktop/KNU2020/GitKNU/knu-projects/2nd/DB/Lab1/Checks.h">
+			<Option target="Lab1_Krymlov"/>
+		</Unit>
+		<Unit filename="E:/Users/Danil/Desktop/KNU2020/GitKNU/knu-projects/2nd/DB/Lab1/Input.h">
+			<Option target="Lab1_Krymlov"/>
+		</Unit>
+		<Unit filename="E:/Users/Danil/Desktop/KNU2020/GitKNU/knu-projects/2nd/DB/Lab1/Main.c">
+			<Option target="Lab1_Krymlov"/>
+		</Unit>
+		<Unit filename="E:/Users/Danil/Desktop/KNU2020/GitKNU/knu-projects/2nd/DB/Lab1/Master.h">
+			<Option target="Lab1_Krymlov"/>
+		</Unit>
+		<Unit filename="E:/Users/Danil/Desktop/KNU2020/GitKNU/knu-projects/2nd/DB/Lab1/Output.h">
+			<Option target="Lab1_Krymlov"/>
+		</Unit>
+		<Unit filename="E:/Users/Danil/Desktop/KNU2020/GitKNU/knu-projects/2nd/DB/Lab1/Slave.h">
+			<Option target="Lab1_Krymlov"/>
+		</Unit>
+		<Unit filename="E:/Users/Danil/Desktop/KNU2020/GitKNU/knu-projects/2nd/DB/Lab1/Structures.h">
+			<Option target="Lab1_Krymlov"/>
+		</Unit>
+		<Unit filename="E:/Users/Danil/Desktop/KNU2020/GitKNU/knu-projects/2nd/DB/Lab1/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\"/>
+		</Unit>
+	</Project>
+</CodeBlocks_project_file>

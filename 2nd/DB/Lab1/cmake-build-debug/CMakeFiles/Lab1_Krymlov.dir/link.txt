@@ -1,0 +1,3 @@
+D:\Development\java\CLion-2020\bin\cmake\win\bin\cmake.exe -E rm -f CMakeFiles\Lab1_Krymlov.dir/objects.a
+D:\Development\soft\MinGW2017w64\mingw64\bin\ar.exe cr CMakeFiles\Lab1_Krymlov.dir/objects.a @CMakeFiles\Lab1_Krymlov.dir\objects1.rsp
+D:\Development\soft\MinGW2017w64\mingw64\bin\gcc.exe -g   -Wl,--whole-archive CMakeFiles\Lab1_Krymlov.dir/objects.a -Wl,--no-whole-archive  -o Lab1_Krymlov.exe -Wl,--out-implib,libLab1_Krymlov.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\Lab1_Krymlov.dir\linklibs.rsp

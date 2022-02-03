@@ -1,0 +1,4 @@
+D:\Development\java\CLion-2020\bin\cmake\win\bin\cmake.exe -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - MinGW Makefiles" E:\Users\Danil\Desktop\KNU2020\GitKNU\knu-projects\2nd\DB\Lab1
+-- Configuring done
+-- Generating done
+-- Build files have been written to: E:/Users/Danil/Desktop/KNU2020/GitKNU/knu-projects/2nd/DB/Lab1/cmake-build-debug
