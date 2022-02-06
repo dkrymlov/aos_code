@@ -1,38 +1,38 @@
 #pragma once
 #include <stdio.h>
 #include <string.h>
-#include "Structures.h"
-#include "Master.h"
+#include "Structs.h"
+#include "Parent.h"
 
-void readMaster(struct Master* master)
+void readParent(struct Parent* parent)
 {
 	char name[16];
 	int status;
 
 	name[0] = '\0';
 
-	printf("Enter master\'s name: ");
+	printf("Enter parent\'s name: ");
 	scanf("%s", name);
 
-	strcpy(master->name, name);
+	strcpy(parent->name, name);
 
-	printf("Enter master\'s status: ");
+	printf("Enter parent\'s status: ");
 	scanf("%d", &status);
 
-	master->status = status;
+    parent->status = status;
 }
 
-void readSlave(struct Slave* slave)
+void readChild(struct Child* child)
 {
 	int x;
 
 	printf("Enter price: ");
 	scanf("%d", &x);
 
-	slave->price = x;
+    child->price = x;
 
 	printf("Enter amount: ");
 	scanf("%d", &x);
 
-	slave->amount = x;
+    child->amount = x;
 }

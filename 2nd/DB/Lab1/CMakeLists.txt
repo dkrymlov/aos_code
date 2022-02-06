@@ -9,7 +9,7 @@ add_executable(Lab1_Krymlov
         Checks.h
         Input.h
         Main.c
-        Master.h
+        Parent.h
         Output.h
-        Slave.h
-        Structures.h)
+        Child.h
+        Structs.h)

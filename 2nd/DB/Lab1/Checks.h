@@ -2,13 +2,14 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include "Slave.h"
+#include "Child.h"
 
-int getMaster(struct Master* master, int id, char* error);
+int getParent(struct Parent* parent, int id, char* error);
 
+//перевірка існування файлів
 int checkFileExistence(FILE* indexTable, FILE* database, char* error)
 {
-	// DB files do not exist yet
+	//Файли бази данних ще не існують
 	if (indexTable == NULL || database == NULL)
 	{
 		strcpy(error, "database files are not created yet");
@@ -18,6 +19,7 @@ int checkFileExistence(FILE* indexTable, FILE* database, char* error)
 	return 1;
 }
 
+//преревірка існування індексів
 int checkIndexExistence(FILE* indexTable, char* error, int id)
 {
 	fseek(indexTable, 0, SEEK_END);
@@ -33,9 +35,10 @@ int checkIndexExistence(FILE* indexTable, char* error, int id)
 	return 1;
 }
 
+//перевірка існування записів
 int checkRecordExistence(struct Indexer indexer, char* error)
 {
-	// Record's been removed
+	// запис був видалений
 	if (!indexer.exists)
 	{
 		strcpy(error, "the record you\'re looking for has been removed");
@@ -45,39 +48,10 @@ int checkRecordExistence(struct Indexer indexer, char* error)
 	return 1;
 }
 
-// !!! WARNING !!!
-// This function causes some file flush error and may be actually omitted
-// (IRL different supplements may have same kind of product supplied).
-// [DEPRECATED]
-int checkKeyPairUniqueness(struct Master master, int productId)
+//отримати інфу
+void getInfo()
 {
-	FILE* slavesDb = fopen(SLAVE_DATA, "r+b");
-	struct Slave slave;
-
-	fseek(slavesDb, master.firstSlaveAddress, SEEK_SET);
-
-	for (int i = 0; i < master.slavesCount; i++)
-	{
-		fread(&slave, SLAVE_SIZE, 1, slavesDb);
-		fclose(slavesDb);
-
-		if (slave.productId == productId)
-		{
-			return 0;
-		}
-
-		slavesDb = fopen(SLAVE_DATA, "r+b");
-		fseek(slavesDb, slave.nextAddress, SEEK_SET);
-	}
-
-	fclose(slavesDb);
-
-	return 1;
-}
-
-void info()
-{
-	FILE* indexTable = fopen("master.ind", "rb");
+	FILE* indexTable = fopen("parent.ind", "rb");
 
 	if (indexTable == NULL)
 	{
@@ -85,29 +59,29 @@ void info()
 		return;
 	}
 
-	int masterCount = 0;
-	int slaveCount = 0;
+	int parentCount = 0;
+	int childCount = 0;
 
 	fseek(indexTable, 0, SEEK_END);
 	int indAmount = ftell(indexTable) / sizeof(struct Indexer);
 
-	struct Master master;
+	struct Parent parent;
 
 	char dummy[51];
 
 	for (int i = 1; i <= indAmount; i++)
 	{
-		if (getMaster(&master, i, dummy))
+		if (getParent(&parent, i, dummy))
 		{
-			masterCount++;
-			slaveCount += master.slavesCount;
+			parentCount++;
+            childCount += parent.childCount;
 
-			printf("Master #%d has %d slave(s)\n", i, master.slavesCount);
+			printf("Parent #%d has %d child(s)\n", i, parent.childCount);
 		}
 	}
 
 	fclose(indexTable);
 
-	printf("Total masters: %d\n", masterCount);
-	printf("Total slaves: %d\n", slaveCount);
+	printf("Total parent count: %d\n", parentCount);
+	printf("Total child count: %d\n", childCount);
 }

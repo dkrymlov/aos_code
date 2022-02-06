@@ -1,7 +1,0 @@
-﻿  Main.c
-C:\Users\Artyom\Desktop\DB\Masters and Slaves\Slave.h(165,14): warning C4013: 'updateMaster' undefined; assuming extern returning int
-C:\Users\Artyom\Desktop\DB\Masters and Slaves\Checks.h(24,57): warning C4018: '>': signed/unsigned mismatch
-C:\Users\Artyom\Desktop\DB\Masters and Slaves\Checks.h(103,16): warning C4013: 'getMaster' undefined; assuming extern returning int
-C:\Users\Artyom\Desktop\DB\Masters and Slaves\Main.c(111,35): warning C4020: 'updateSlave': too many actual parameters
-C:\Users\Artyom\Desktop\DB\Masters and Slaves\Slave.h(239): warning C4716: 'deleteSlave': must return a value
-  Masters and Slaves.vcxproj -> C:\Users\Artyom\Desktop\DB\Masters and Slaves\Debug\Masters and Slaves.exe

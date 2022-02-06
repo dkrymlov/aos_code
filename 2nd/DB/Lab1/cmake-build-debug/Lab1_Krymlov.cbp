@@ -79,22 +79,22 @@
 		<Unit filename="E:/Users/Danil/Desktop/KNU2020/GitKNU/knu-projects/2nd/DB/Lab1/Checks.h">
 			<Option target="Lab1_Krymlov"/>
 		</Unit>
+		<Unit filename="E:/Users/Danil/Desktop/KNU2020/GitKNU/knu-projects/2nd/DB/Lab1/Child.h">
+			<Option target="Lab1_Krymlov"/>
+		</Unit>
 		<Unit filename="E:/Users/Danil/Desktop/KNU2020/GitKNU/knu-projects/2nd/DB/Lab1/Input.h">
 			<Option target="Lab1_Krymlov"/>
 		</Unit>
 		<Unit filename="E:/Users/Danil/Desktop/KNU2020/GitKNU/knu-projects/2nd/DB/Lab1/Main.c">
 			<Option target="Lab1_Krymlov"/>
 		</Unit>
-		<Unit filename="E:/Users/Danil/Desktop/KNU2020/GitKNU/knu-projects/2nd/DB/Lab1/Master.h">
-			<Option target="Lab1_Krymlov"/>
-		</Unit>
 		<Unit filename="E:/Users/Danil/Desktop/KNU2020/GitKNU/knu-projects/2nd/DB/Lab1/Output.h">
 			<Option target="Lab1_Krymlov"/>
 		</Unit>
-		<Unit filename="E:/Users/Danil/Desktop/KNU2020/GitKNU/knu-projects/2nd/DB/Lab1/Slave.h">
+		<Unit filename="E:/Users/Danil/Desktop/KNU2020/GitKNU/knu-projects/2nd/DB/Lab1/Parent.h">
 			<Option target="Lab1_Krymlov"/>
 		</Unit>
-		<Unit filename="E:/Users/Danil/Desktop/KNU2020/GitKNU/knu-projects/2nd/DB/Lab1/Structures.h">
+		<Unit filename="E:/Users/Danil/Desktop/KNU2020/GitKNU/knu-projects/2nd/DB/Lab1/Structs.h">
 			<Option target="Lab1_Krymlov"/>
 		</Unit>
 		<Unit filename="E:/Users/Danil/Desktop/KNU2020/GitKNU/knu-projects/2nd/DB/Lab1/CMakeLists.txt">
