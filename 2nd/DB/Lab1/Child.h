@@ -183,7 +183,8 @@ int getChild(struct Parent parent, struct Child* child, int productId, char* err
 	{
 		if (child->productId == productId)						        // Знайшли
 		{
-			fclose(database);
+            strcpy(error, child->price + " " + child->amount);
+            fclose(database);
 			return 1;
 		}
 

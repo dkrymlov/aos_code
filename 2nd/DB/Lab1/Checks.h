@@ -48,6 +48,32 @@ int checkRecordExistence(struct Indexer indexer, char* error)
 	return 1;
 }
 
+int checkKeyPairUniqueness(struct Parent master, int productId)
+{
+    FILE* childDb = fopen(CHILD_DATA, "r+b");
+    struct Child child;
+
+    fseek(childDb, master.firstChildAddress, SEEK_SET);
+
+    for (int i = 0; i < master.childCount; i++)
+    {
+        fread(&child, CHILD_SIZE, 1, childDb);
+        fclose(childDb);
+
+        if (child.productId == productId)
+        {
+            return 0;
+        }
+
+        childDb = fopen(CHILD_DATA, "r+b");
+        fseek(childDb, child.nextAddress, SEEK_SET);
+    }
+
+    fclose(childDb);
+
+    return 1;
+}
+
 //отримати інфу
 void getInfo()
 {

@@ -54,11 +54,6 @@
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration default="true" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" PASS_PARENT_ENVS_2="true">
-      <method v="2">
-        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
-      </method>
-    </configuration>
     <list>
       <item itemvalue="CMake Application.Unnamed" />
       <item itemvalue="CMake Application.Lab1_Krymlov" />
@@ -80,6 +75,9 @@
       <workItem from="1643905021424" duration="134000" />
       <workItem from="1643976497086" duration="1134000" />
       <workItem from="1643987359683" duration="5767000" />
+      <workItem from="1644222191699" duration="744000" />
+      <workItem from="1644223253843" duration="1478000" />
+      <workItem from="1644224968012" duration="1692000" />
     </task>
     <servers />
   </component>

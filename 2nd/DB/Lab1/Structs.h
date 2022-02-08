@@ -1,6 +1,5 @@
 #pragma once
 
-
 struct Parent
 {
 	int id;
