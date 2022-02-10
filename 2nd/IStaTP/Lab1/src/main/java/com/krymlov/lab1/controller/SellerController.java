@@ -5,8 +5,8 @@ import com.krymlov.lab1.entity.CategoryEntity;
 import com.krymlov.lab1.entity.ItemEntity;
 import com.krymlov.lab1.entity.SellerEntity;
 import com.krymlov.lab1.model.Seller;
-import com.krymlov.lab1.repository.*;
-import org.springframework.beans.BeanUtils;
+import com.krymlov.lab1.service.GoogleChartsUtils;
+import com.krymlov.lab1.service.SellerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,45 +17,20 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import javax.servlet.http.HttpServletRequest;
 import javax.transaction.Transactional;
 import javax.validation.Valid;
-import java.util.Map;
-import java.util.TreeMap;
 
 @Controller
 public class SellerController {
 
     @Autowired
-    private ItemRepo itemRepo;
+    private SellerService sellerService;
 
     @Autowired
-    private SellerRepo sellerRepo;
-
-    @Autowired
-    private BrandRepo brandRepo;
-
-    @Autowired
-    private CategoryRepo categoryRepo;
-
-    @Autowired
-    private CartItemRepo cartItemRepo;
-
-    private Map<String, Integer> brandsMap = new TreeMap<>();
-    private Map<String, Integer> categoriesMap = new TreeMap<>();
-
-    private void initMaps(Iterable<BrandEntity> brands, Iterable<CategoryEntity> categories, Seller seller){
-        for (BrandEntity brand : brands){
-            brandsMap.put(brand.getName(), itemRepo.countAllByBrandIdAndSellerId(brand.getId(), seller.getId()));
-        }
-
-        for (CategoryEntity category : categories){
-            categoriesMap.put(category.getName(), itemRepo.countAllByCategoryIdAndSellerId(category.getId(), seller.getId()));
-        }
-    }
+    private GoogleChartsUtils gcu;
 
     @RequestMapping("/seller")
     public String getSellers(Model model){
 
-        Iterable<SellerEntity> sellers = sellerRepo.findAll();
-
+        Iterable<SellerEntity> sellers = sellerService.getSellerRepo().findAll();
         model.addAttribute("sellers", sellers);
 
         return "/sellers/seller";
@@ -71,23 +46,13 @@ public class SellerController {
 
         String referer = request.getHeader("Referer");
 
-        if (sellerRepo.findByName(seller.getName()) != null){
-            redirectAttributes.addFlashAttribute("wrongData", "Неможливо створити ще одного продавця з такою назвою.");
-            return "redirect:" + referer;
-        }
-
-        if (seller.getAccreditation() < 100000 || seller.getAccreditation() > 999999){
-            redirectAttributes.addFlashAttribute("wrongData", "Ви ввели неправильний номер акредитації.");
-            return "redirect:" + referer;
-        }
-
-        if (sellerRepo.findByAccreditation(seller.getAccreditation()) != null){
-            redirectAttributes.addFlashAttribute("wrongData", "У всіх повинен бути унікальний номер акредитації.");
+        if (sellerService.checkSellerCreate(seller) != null){
+            redirectAttributes.addFlashAttribute("wrongData", sellerService.checkSellerCreate(seller));
             return "redirect:" + referer;
         }
 
         SellerEntity sellerEntity = new SellerEntity(seller.getName(),seller.getInfo(), seller.getAccreditation());
-        sellerRepo.save(sellerEntity);
+        sellerService.getSellerRepo().save(sellerEntity);
 
         return "redirect:/seller";
     }
@@ -95,52 +60,16 @@ public class SellerController {
     @PostMapping("/seller/edit")
     public String editSeller(@Valid Seller seller, Model model, HttpServletRequest request, RedirectAttributes redirectAttributes){
 
-        SellerEntity sellerEntity = sellerRepo.findById(seller.getId()).get();
+        SellerEntity sellerEntity = sellerService.getSellerRepo().findById(seller.getId()).get();
         SellerEntity returnEntity = new SellerEntity(seller.getName(), seller.getInfo(), seller.getAccreditation());
         String referer = request.getHeader("Referer");
 
-        SellerEntity temp = sellerRepo.findById(seller.getId()).get();
-        if (temp.getName().equals(seller.getName())){
+        SellerEntity temp = sellerService.getSellerRepo().findById(seller.getId()).get();
 
-            if (seller.getAccreditation() < 100000 || seller.getAccreditation() > 999999){
-                redirectAttributes.addFlashAttribute("wrongData", "Ви ввели неправильний номер акредитації.");
-                return "redirect:" + referer;
-            }
-
-            if (!temp.getAccreditation().equals(seller.getAccreditation())){
-                if (sellerRepo.findByAccreditation(seller.getAccreditation()) != null){
-                    redirectAttributes.addFlashAttribute("wrongData", "У всіх повинен бути унікальний номер акредитації.");
-                    return "redirect:" + referer;
-                }
-            }
-
-            BeanUtils.copyProperties(returnEntity, sellerEntity, "id");
-
-            sellerRepo.save(sellerEntity);
-
-            return "redirect:/seller";
-        }
-
-        if (sellerRepo.findByName(seller.getName()) != null){
-            redirectAttributes.addFlashAttribute("wrongData", "Неможливо створити ще одного продавця з такою назвою.");
+        if (sellerService.checkSellerEdit(seller, temp, sellerEntity, returnEntity) != null){
+            redirectAttributes.addFlashAttribute("wrongData", sellerService.checkSellerEdit(seller, temp, sellerEntity, returnEntity));
             return "redirect:" + referer;
-        }
-
-        if (seller.getAccreditation() < 100000 || seller.getAccreditation() > 999999){
-            redirectAttributes.addFlashAttribute("wrongData", "Ви ввели неправильний номер акредитації.");
-            return "redirect:" + referer;
-        }
-
-        if (sellerRepo.findByAccreditation(seller.getAccreditation()) != null){
-            redirectAttributes.addFlashAttribute("wrongData", "У всіх повинен бути унікальний номер акредитації.");
-            return "redirect:" + referer;
-        }
-
-        BeanUtils.copyProperties(returnEntity, sellerEntity, "id");
-
-        sellerRepo.save(sellerEntity);
-
-        return "redirect:/seller";
+        }else return "redirect:/seller";
 
     }
 
@@ -159,16 +88,16 @@ public class SellerController {
     @PostMapping("/seller/delete")
     public String deleteSeller(@Valid Seller seller, RedirectAttributes redirectAttributes){
 
-        SellerEntity sellerEntity = sellerRepo.findById(seller.getId()).get();
+        SellerEntity sellerEntity = sellerService.getSellerRepo().findById(seller.getId()).get();
         redirectAttributes.addFlashAttribute("deleted", "Продавця з назвою " + sellerEntity.getName() + " було видалено.");
 
-        Iterable<ItemEntity> items = itemRepo.findAllBySellerId(seller.getId());
+        Iterable<ItemEntity> items = sellerService.getItemRepo().findAllBySellerId(seller.getId());
         for (ItemEntity item : items){
-            cartItemRepo.deleteByItemId(item.getId());
+            sellerService.getCartItemRepo().deleteByItemId(item.getId());
         }
 
-        itemRepo.deleteAllBySellerId(seller.getId());
-        sellerRepo.deleteById(seller.getId());
+        sellerService.getItemRepo().deleteAllBySellerId(seller.getId());
+        sellerService.getSellerRepo().deleteById(seller.getId());
 
         return "redirect:/seller";
     }
@@ -187,14 +116,12 @@ public class SellerController {
     @RequestMapping("/seller/details")
     public String getDetailsSeller(@Valid Seller seller, Model model){
 
-        Iterable<BrandEntity> brands = brandRepo.findAll();
-        Iterable<CategoryEntity> categories = categoryRepo.findAll();
-        Iterable<ItemEntity> items = itemRepo.findAllBySellerId(seller.getId());
+        Iterable<BrandEntity> brands = sellerService.getBrandRepo().findAll();
+        Iterable<CategoryEntity> categories = sellerService.getCategoryRepo().findAll();
+        Iterable<ItemEntity> items = sellerService.getItemRepo().findAllBySellerId(seller.getId());
 
-        initMaps(brands, categories, seller);
-
-        model.addAttribute("brandsData", brandsMap);
-        model.addAttribute("categoriesData", categoriesMap);
+        model.addAttribute("brandsData", gcu.getSellerBrandsMap(brands, seller));
+        model.addAttribute("categoriesData", gcu.getSellerCategoriesMap(categories, seller));
 
         model.addAttribute("name", seller.getName());
         model.addAttribute("info", seller.getInfo());

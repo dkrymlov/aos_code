@@ -5,7 +5,8 @@ import com.krymlov.lab1.entity.SellerEntity;
 import com.krymlov.lab1.model.Category;
 import com.krymlov.lab1.entity.ItemEntity;
 import com.krymlov.lab1.entity.CategoryEntity;
-import com.krymlov.lab1.repository.*;
+import com.krymlov.lab1.service.CategoryService;
+import com.krymlov.lab1.service.GoogleChartsUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,47 +17,21 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import javax.servlet.http.HttpServletRequest;
 import javax.transaction.Transactional;
 import javax.validation.Valid;
-import java.util.Map;
-import java.util.TreeMap;
 
 @Controller
 public class CategoryController {
 
     @Autowired
-    private BrandRepo brandRepo;
+    private CategoryService categoryService;
 
     @Autowired
-    private SellerRepo sellerRepo;
+    private GoogleChartsUtils gcu;
 
-    @Autowired
-    private CategoryRepo categoryRepo;
-
-    @Autowired
-    private ItemRepo itemRepo;
-
-    @Autowired
-    private CartItemRepo cartItemRepo;
-
-    private Map<String, Integer> brandsMap = new TreeMap<>();
-    private Map<String, Integer> sellersMap = new TreeMap<>();
-
-    private void initMaps(Iterable<BrandEntity> brands, Iterable<SellerEntity> sellers, Category category){
-
-        for (BrandEntity brand : brands){
-            brandsMap.put(brand.getName(), itemRepo.countAllByBrandIdAndCategoryId(brand.getId(), category.getId()));
-        }
-
-        for (SellerEntity seller : sellers){
-            sellersMap.put(seller.getName(), itemRepo.countAllBySellerIdAndCategoryId(seller.getId(), category.getId()));
-        }
-
-    }
 
     @RequestMapping("/category")
     public String getCategories(Model model){
 
-        Iterable<CategoryEntity> categories = categoryRepo.findAll();
-
+        Iterable<CategoryEntity> categories = categoryService.getCategoryRepo().findAll();
         model.addAttribute("categories", categories);
 
         return "categories/category";
@@ -72,13 +47,13 @@ public class CategoryController {
 
         String referer = request.getHeader("Referer");
 
-        if (categoryRepo.findByName(category.getName()) != null){
-            redirectAttributes.addFlashAttribute("wrongData", "Неможливо створити однакову категорію.");
+        if (categoryService.createCategoryCheck(category) != null){
+            redirectAttributes.addFlashAttribute("wrongData", categoryService.createCategoryCheck(category));
             return "redirect:"+ referer;
         }
 
         CategoryEntity categoryEntity = new CategoryEntity(category.getName(), category.getInfo());
-        categoryRepo.save(categoryEntity);
+        categoryService.getCategoryRepo().save(categoryEntity);
 
         return "redirect:/category";
     }
@@ -98,17 +73,17 @@ public class CategoryController {
 
         String referer = request.getHeader("Referer");
 
-        if (categoryRepo.findByName(category.getName()) != null){
+        if (categoryService.getCategoryRepo().findByName(category.getName()) != null){
             redirectAttributes.addFlashAttribute("wrongData", "Неможливо створити однакову категорію.");
             return "redirect:"+ referer;
         }
 
-        CategoryEntity categoryEntity = categoryRepo.findById(category.getId()).get();
+        CategoryEntity categoryEntity = categoryService.getCategoryRepo().findById(category.getId()).get();
         CategoryEntity returnEntity = new CategoryEntity(category.getName(), category.getInfo());
 
         BeanUtils.copyProperties(returnEntity, categoryEntity, "id");
 
-        categoryRepo.save(categoryEntity);
+        categoryService.getCategoryRepo().save(categoryEntity);
 
         return "redirect:/category";
     }
@@ -127,16 +102,16 @@ public class CategoryController {
     @PostMapping("/category/delete")
     public String deleteCategory(@Valid Category category, RedirectAttributes redirectAttributes){
 
-        CategoryEntity categoryEntity = categoryRepo.findById(category.getId()).get();
+        CategoryEntity categoryEntity = categoryService.getCategoryRepo().findById(category.getId()).get();
         redirectAttributes.addFlashAttribute("deleted", "Категорію з назвою " + categoryEntity.getName() + " було видалено.");
 
-        Iterable<ItemEntity> items = itemRepo.findAllByCategoryId(category.getId());
+        Iterable<ItemEntity> items = categoryService.getItemRepo().findAllByCategoryId(category.getId());
         for(ItemEntity item : items){
-            cartItemRepo.deleteByItemId(item.getId());
+            categoryService.getCartItemRepo().deleteByItemId(item.getId());
         }
 
-        itemRepo.deleteAllByCategory_Id(category.getId());
-        categoryRepo.deleteById(category.getId());
+        categoryService.getItemRepo().deleteAllByCategory_Id(category.getId());
+        categoryService.getCategoryRepo().deleteById(category.getId());
 
         return "redirect:/category";
     }
@@ -144,14 +119,12 @@ public class CategoryController {
     @RequestMapping("/category/details")
     public String getDetailsCategory(@Valid Category category, Model model){
 
-        Iterable<BrandEntity> brands = brandRepo.findAll();
-        Iterable<SellerEntity> sellers = sellerRepo.findAll();
-        Iterable<ItemEntity> items = itemRepo.findAllByCategoryId(category.getId());
+        Iterable<BrandEntity> brands = categoryService.getBrandRepo().findAll();
+        Iterable<SellerEntity> sellers = categoryService.getSellerRepo().findAll();
+        Iterable<ItemEntity> items = categoryService.getItemRepo().findAllByCategoryId(category.getId());
 
-        initMaps(brands, sellers, category);
-
-        model.addAttribute("brandsData", brandsMap);
-        model.addAttribute("sellersData", sellersMap);
+        model.addAttribute("brandsData", gcu.getCategoryBrandsMap(brands, category));
+        model.addAttribute("sellersData", gcu.getCategorySellersMap(sellers, category));
 
         model.addAttribute("name", category.getName());
         model.addAttribute("info", category.getInfo());

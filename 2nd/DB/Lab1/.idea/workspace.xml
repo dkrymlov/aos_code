@@ -35,7 +35,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="cf.first.check.clang-format" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/cmake-build-debug" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../../../../EOlympC++/greedy-algorythm/tasks/lottery" />
     <property name="settings.editor.selected.configurable" value="preferences.keymap" />
   </component>
   <component name="RecentsManager">
@@ -78,6 +78,7 @@
       <workItem from="1644222191699" duration="744000" />
       <workItem from="1644223253843" duration="1478000" />
       <workItem from="1644224968012" duration="1692000" />
+      <workItem from="1644313067622" duration="70000" />
     </task>
     <servers />
   </component>

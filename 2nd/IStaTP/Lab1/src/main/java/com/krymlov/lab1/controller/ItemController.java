@@ -6,6 +6,8 @@ import com.krymlov.lab1.entity.BrandEntity;
 import com.krymlov.lab1.entity.ItemEntity;
 import com.krymlov.lab1.entity.CategoryEntity;
 import com.krymlov.lab1.repository.*;
+import com.krymlov.lab1.service.GoogleChartsUtils;
+import com.krymlov.lab1.service.ItemService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -24,39 +26,10 @@ import java.util.TreeMap;
 public class ItemController {
 
     @Autowired
-    private ItemRepo itemRepo;
+    private ItemService itemService;
 
     @Autowired
-    private CategoryRepo categoryRepo;
-
-    @Autowired
-    private BrandRepo brandRepo;
-
-    @Autowired
-    private SellerRepo sellerRepo;
-
-    @Autowired
-    private CartItemRepo cartItemRepo;
-
-    private Map<String, Integer> brandsMap = new TreeMap<>();
-    private Map<String, Integer> categoriesMap = new TreeMap<>();
-    private Map<String, Integer> sellersMap = new TreeMap<>();
-
-    private void initMaps(Iterable<BrandEntity> brands, Iterable<CategoryEntity> categories, Iterable<SellerEntity> sellers ){
-
-        for (BrandEntity brand : brands){
-            brandsMap.put(brand.getName(), itemRepo.countAllByBrandId(brand.getId()));
-        }
-
-        for (CategoryEntity category : categories){
-            categoriesMap.put(category.getName(), itemRepo.countAllByCategoryId(category.getId()));
-        }
-
-        for (SellerEntity seller : sellers){
-            sellersMap.put(seller.getName(), itemRepo.countAllBySellerId(seller.getId()));
-        }
-    }
-
+    private GoogleChartsUtils gcu;
 
     @RequestMapping("/item/create")
     public String getCreateItem(Model model){
@@ -68,50 +41,26 @@ public class ItemController {
 
         String referer = request.getHeader("Referer");
 
-        if (item.getBrand() != null && item.getCategory() != null && item.getSeller() != null){
+        if (itemService.checkItemCreate(item) != null){
 
-            if (itemRepo.findByNameAndInfoAndCategoryIdAndBrandIdAndSellerId(item.getName(),item.getInfo(), item.getCategory().getId(),item.getBrand().getId(),item.getSeller().getId()) != null){
-                ItemEntity itemEntity = itemRepo.findByNameAndInfoAndCategoryIdAndBrandIdAndSellerId
-                        (item.getName(),item.getInfo(), item.getCategory().getId(),item.getBrand().getId(), item.getSeller().getId());
-                if (itemEntity.getSeller().getId().equals(item.getSeller().getId())){
-                    redirectAttributes.addFlashAttribute("wrongData",
-                            "У однакових товарів повинен бути хоча б інший продавець.");
-                    return "redirect:"+ referer;
-                }
-            }
+            redirectAttributes.addFlashAttribute("wrongData", itemService.checkItemCreate(item));
+            return "redirect:"+ referer;
 
-            CategoryEntity categoryEntity = categoryRepo.findById(item.getCategory().getId()).get();
-            BrandEntity brandEntity = brandRepo.findById(item.getBrand().getId()).get();
-            SellerEntity sellerEntity = sellerRepo.findById(item.getSeller().getId()).get();
-
-            ItemEntity itemEntity =
-                    new ItemEntity(item.getName(), item.getInfo(), categoryEntity, brandEntity, sellerEntity, item.getPrice());
-
-            itemRepo.save(itemEntity);
-
-            return "redirect:/item";
-        }
-
-        redirectAttributes.addFlashAttribute("wrongData",
-                "Ви ввели неправильний ідентифікатор для категорії/бреду/продавця");
-
-        return "redirect:"+ referer;
+        }else return "redirect:/item";
 
     }
 
     @RequestMapping("/item")
     public String getItems(Model model){
 
-        Iterable<BrandEntity> brands = brandRepo.findAll();
-        Iterable<CategoryEntity> categories = categoryRepo.findAll();
-        Iterable<SellerEntity> sellers = sellerRepo.findAll();
-        Iterable<ItemEntity> items = itemRepo.findAll();
+        Iterable<BrandEntity> brands = itemService.getBrandRepo().findAll();
+        Iterable<CategoryEntity> categories = itemService.getCategoryRepo().findAll();
+        Iterable<SellerEntity> sellers = itemService.getSellerRepo().findAll();
+        Iterable<ItemEntity> items = itemService.getItemRepo().findAll();
 
-        initMaps(brands, categories, sellers);
-
-        model.addAttribute("brandsData", brandsMap);
-        model.addAttribute("categoriesData", categoriesMap);
-        model.addAttribute("sellersData", sellersMap);
+        model.addAttribute("brandsData", gcu.getItemBrandsMap(brands));
+        model.addAttribute("categoriesData", gcu.getItemCategoriesMap(categories));
+        model.addAttribute("sellersData", gcu.getItemSellersMap(sellers));
         model.addAttribute("items", items);
 
         return "items/item";
@@ -120,16 +69,14 @@ public class ItemController {
     @RequestMapping("/item/sort/up")
     public String getSortUp(Model model){
 
-        Iterable<BrandEntity> brands = brandRepo.findAll();
-        Iterable<CategoryEntity> categories = categoryRepo.findAll();
-        Iterable<SellerEntity> sellers = sellerRepo.findAll();
-        Iterable<ItemEntity> items = itemRepo.findByOrderByPriceAsc();
+        Iterable<BrandEntity> brands = itemService.getBrandRepo().findAll();
+        Iterable<CategoryEntity> categories = itemService.getCategoryRepo().findAll();
+        Iterable<SellerEntity> sellers = itemService.getSellerRepo().findAll();
+        Iterable<ItemEntity> items = itemService.getItemRepo().findByOrderByPriceAsc();
 
-        initMaps(brands, categories, sellers);
-
-        model.addAttribute("brandsData", brandsMap);
-        model.addAttribute("categoriesData", categoriesMap);
-        model.addAttribute("sellersData", sellersMap);
+        model.addAttribute("brandsData", gcu.getItemBrandsMap(brands));
+        model.addAttribute("categoriesData", gcu.getItemCategoriesMap(categories));
+        model.addAttribute("sellersData", gcu.getItemSellersMap(sellers));
         model.addAttribute("items", items);
 
         return "items/item";
@@ -138,16 +85,14 @@ public class ItemController {
     @RequestMapping("/item/sort/down")
     public String getSortDown(Model model){
 
-        Iterable<BrandEntity> brands = brandRepo.findAll();
-        Iterable<CategoryEntity> categories = categoryRepo.findAll();
-        Iterable<SellerEntity> sellers = sellerRepo.findAll();
-        Iterable<ItemEntity> items = itemRepo.findByOrderByPriceDesc();
+        Iterable<BrandEntity> brands = itemService.getBrandRepo().findAll();
+        Iterable<CategoryEntity> categories = itemService.getCategoryRepo().findAll();
+        Iterable<SellerEntity> sellers = itemService.getSellerRepo().findAll();
+        Iterable<ItemEntity> items = itemService.getItemRepo().findByOrderByPriceDesc();
 
-        initMaps(brands, categories, sellers);
-
-        model.addAttribute("brandsData", brandsMap);
-        model.addAttribute("categoriesData", categoriesMap);
-        model.addAttribute("sellersData", sellersMap);
+        model.addAttribute("brandsData", gcu.getItemBrandsMap(brands));
+        model.addAttribute("categoriesData", gcu.getItemCategoriesMap(categories));
+        model.addAttribute("sellersData", gcu.getItemSellersMap(sellers));
         model.addAttribute("items", items);
 
         return "items/item";
@@ -158,32 +103,11 @@ public class ItemController {
 
         String referer = request.getHeader("Referer");
 
-        if (item.getBrand() != null && item.getCategory() != null && item.getSeller() != null){
+        if (itemService.checkItemEdit(item) != null){
+            redirectAttributes.addFlashAttribute("wrongData", itemService.checkItemCreate(item));
+            return "redirect:"+ referer;
 
-            if (itemRepo.findByNameAndInfoAndCategoryIdAndBrandIdAndSellerId(item.getName(),item.getInfo(), item.getCategory().getId(),item.getBrand().getId(),item.getSeller().getId()) != null){
-                ItemEntity itemEntity = itemRepo.findByNameAndInfoAndCategoryIdAndBrandIdAndSellerId
-                        (item.getName(),item.getInfo(), item.getCategory().getId(),item.getBrand().getId(), item.getSeller().getId());
-                if (itemEntity.getSeller().getId().equals(item.getSeller().getId())){
-                    redirectAttributes.addFlashAttribute("wrongData",
-                            "У однакових товарів повинен бути хоча б інший продавець.");
-                    return "redirect:"+ referer;
-                }
-            }
-
-            ItemEntity itemEntity = itemRepo.findById(item.getId()).get();
-            ItemEntity returnEntity =
-                    new ItemEntity(item.getName(), item.getInfo(), item.getCategory(), item.getBrand(), item.getSeller(), item.getPrice());
-
-            BeanUtils.copyProperties(returnEntity, itemEntity, "id");
-
-            itemRepo.save(itemEntity);
-
-            return "redirect:/item";
-        }
-        redirectAttributes.addFlashAttribute("wrongData",
-                "Ви ввели неправильний ідентифікатор для категорії/бреду/продавця");
-
-        return "redirect:"+ referer;
+        }else return "redirect:/item";
     }
 
     @RequestMapping("/item/edit")
@@ -204,12 +128,12 @@ public class ItemController {
     @PostMapping("/item/delete")
     public String deleteItem(@Valid Item item, RedirectAttributes redirectAttributes){
 
-        ItemEntity itemEntity = itemRepo.findById(item.getId()).get();
+        ItemEntity itemEntity = itemService.getItemRepo().findById(item.getId()).get();
         redirectAttributes.addFlashAttribute("deleted", "Товар з назвою " + itemEntity.getName() + " було видалено.");
 
-        cartItemRepo.deleteAllByItem_Id(item.getId());
+        itemService.getCartItemRepo().deleteAllByItem_Id(item.getId());
 
-        itemRepo.deleteById(item.getId());
+        itemService.getItemRepo().deleteById(item.getId());
 
         return "redirect:/item";
     }

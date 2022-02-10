@@ -3,6 +3,7 @@ package com.krymlov.lab1.controller;
 import com.krymlov.lab1.entity.*;
 import com.krymlov.lab1.model.Brand;
 import com.krymlov.lab1.service.BrandService;
+import com.krymlov.lab1.service.GoogleChartsUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,8 +15,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import javax.servlet.http.HttpServletRequest;
 import javax.transaction.Transactional;
 import javax.validation.Valid;
-import java.util.Map;
-import java.util.TreeMap;
 
 @Controller
 public class BrandController {
@@ -23,19 +22,8 @@ public class BrandController {
     @Autowired
     private BrandService brandService;
 
-    private Map<String, Integer> categoriesMap = new TreeMap<>();
-    private Map<String, Integer> sellersMap = new TreeMap<>();
-
-    private void initMaps(Iterable<CategoryEntity> categories, Iterable<SellerEntity> sellers, Brand brand){
-
-        for (CategoryEntity category : categories){
-            categoriesMap.put(category.getName(), brandService.getItemRepo().countAllByBrandIdAndCategoryId(brand.getId(), category.getId()));
-        }
-
-        for (SellerEntity seller : sellers){
-            sellersMap.put(seller.getName(), brandService.getItemRepo().countAllByBrandIdAndSellerId(brand.getId(), seller.getId()));
-        }
-    }
+    @Autowired
+    private GoogleChartsUtils gcu;
 
     @RequestMapping("/brand")
     public String getBrands(Model model){
@@ -132,10 +120,8 @@ public class BrandController {
         Iterable<CategoryEntity> categories = brandService.getCategoryRepo().findAll();
         Iterable<ItemEntity> items = brandService.getItemRepo().findAllByBrandId(brand.getId());
 
-        initMaps(categories, sellers, brand);
-
-        model.addAttribute("sellersData", sellersMap);
-        model.addAttribute("categoriesData", categoriesMap);
+        model.addAttribute("sellersData", gcu.getBrandSellersMap(sellers, brand));
+        model.addAttribute("categoriesData", gcu.getBrandCategoriesMap(categories, brand));
 
         model.addAttribute("name", brand.getName());
         model.addAttribute("info", brand.getInfo());

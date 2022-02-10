@@ -14,10 +14,16 @@
     </header>
 
     <main class="px-3">
+
+        <div th:if="${wrongData}" class="alertError">
+            <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+            <strong>Помилка: </strong><text th:text="${wrongData}"></text>
+        </div>
+
         <div class="categories p-3">
             <h3>Корзина</h3>
             <h4 style="color: bisque">До сплати:</h4>
-            <h4 style="color: bisque" th:text="${totalPrice}"></h4>
+            <h4 style="color: bisque" th:text="${totalCartPrice}"></h4>
             <a href="/cart/clean">Очистити корзину</a>
         </div>
 

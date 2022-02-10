@@ -51,29 +51,29 @@ public class BrandService {
         return cartItemRepo;
     }
 
-    public String createBrandCheck(Brand brand){
-        if (brandRepo.findByName(brand.getName()) != null){
+    public String createBrandCheck(Brand brand) {
+        if (brandRepo.findByName(brand.getName()) != null) {
             return "Неможливо створити ще один бренд з такою назвою.";
         }
-        if (brand.getCountry() == null){
+        if (brand.getCountry() == null) {
             return "Неправильний ідентифікатор країни.";
         }
         return null;
     }
 
-    public String editBrandCheck(Brand brand){
+    public String editBrandCheck(Brand brand) {
 
         BrandEntity temp = brandRepo.findById(brand.getId()).get();
-        if (temp.getName().equals(brand.getName())){
+        if (temp.getName().equals(brand.getName())) {
 
-            if (brand.getCountry() == null){
+            if (brand.getCountry() == null) {
                 return "Неправильний ідентифікатор країни.";
             }
 
             return null;
         }
 
-        if (brandRepo.findByName(brand.getName()) != null){
+        if (brandRepo.findByName(brand.getName()) != null) {
             return "Неможливо створити ще один бренд з такою назвою";
         }
 

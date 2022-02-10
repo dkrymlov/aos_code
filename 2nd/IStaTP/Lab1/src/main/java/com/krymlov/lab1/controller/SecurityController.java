@@ -21,6 +21,11 @@ public class SecurityController {
     @Autowired
     private UserRepo userRepo;
 
+    @RequestMapping("/")
+    public String getPage(){
+        return "redirect:/category";
+    }
+
     @RequestMapping("/registration")
     public String getRegisterUser(){
         return "security/register";
