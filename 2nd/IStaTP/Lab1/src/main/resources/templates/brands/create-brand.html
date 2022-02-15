@@ -27,7 +27,11 @@
             <form style="padding: 2%" action="/brand/create" method="post">
                 <input type="text" name="name" placeholder="Введіть назву бренду" class="form-control" required><br>
                 <input type="text" name="info" placeholder="Введіть інформацію про бренд" class="form-control" required><br>
-                <input type="text" name="country" placeholder="Введіть ідентифікатор кріїни бренду" class="form-control" required><br>
+                <select class="form-select" name="country" required>
+                    <option value="" selected>Оберіть країну бренду</option>
+                    <option th:each="el : ${countries}" th:value="${el.id}" th:text="${el.name}"></option>
+                </select>
+                <br>
                 <button type="submit" class="btn btn-primary">Додати Бренд</button>
             </form>
 

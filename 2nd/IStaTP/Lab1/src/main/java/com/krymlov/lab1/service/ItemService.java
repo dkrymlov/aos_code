@@ -56,6 +56,9 @@ public class ItemService {
                 return "У однакових товарів повинен бути хоча б інший продавець.";
             }
         }
+        if (item.getPrice() <= 0){
+            return "Ціна повинна бути більше нуля!";
+        }
         return null;
     }
 

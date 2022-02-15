@@ -4,6 +4,7 @@ import com.krymlov.lab1.entity.UserEntity;
 import com.krymlov.lab1.model.RolesEnum;
 import com.krymlov.lab1.model.User;
 import com.krymlov.lab1.repository.UserRepo;
+import com.krymlov.lab1.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,7 +20,7 @@ import java.util.Collections;
 public class SecurityController {
 
     @Autowired
-    private UserRepo userRepo;
+    private UserService userService;
 
     @RequestMapping("/")
     public String getPage(){
@@ -32,27 +33,12 @@ public class SecurityController {
     }
 
     @PostMapping("/registration")
-    public String registerUser(@Valid User user, Model model, HttpServletRequest request, RedirectAttributes redirectAttributes){
+    public String registerUser(@Valid User user, Model model, HttpServletRequest request){
 
-        String referer = request.getHeader("Referer");
-
-        if (userRepo.findByUsername(user.getUsername()) != null){
-            model.addAttribute("wrongData", "Користувач з логіном " + user.getUsername() + " вже існує.");
-            return "security/register";
+        if (userService.registerNewAccount(user) != null){
+            model.addAttribute("wrongData", userService.registerNewAccount(user));
+            return "/security/register";
         }
-
-        if (user.getPassword().length() < 6){
-            redirectAttributes.addFlashAttribute("wrongData", "Пароль повинен містити мінімум 6 символів");
-            return "redirect:" + referer;
-        }
-
-        UserEntity userEntity = new UserEntity();
-        userEntity.setUsername(user.getUsername());
-        userEntity.setPassword(user.getPassword());
-        userEntity.setActive(true);
-        userEntity.setRoles(Collections.singleton(RolesEnum.ROLE_USER));
-        userRepo.save(userEntity);
-
         return "redirect:/login";
     }
 

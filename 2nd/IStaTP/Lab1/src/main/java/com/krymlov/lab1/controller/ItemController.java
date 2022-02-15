@@ -33,6 +33,14 @@ public class ItemController {
 
     @RequestMapping("/item/create")
     public String getCreateItem(Model model){
+        Iterable<BrandEntity> brands = itemService.getBrandRepo().findAll();
+        Iterable<CategoryEntity> categories = itemService.getCategoryRepo().findAll();
+        Iterable<SellerEntity> sellers = itemService.getSellerRepo().findAll();
+
+        model.addAttribute("brands",brands);
+        model.addAttribute("categories",categories);
+        model.addAttribute("sellers",sellers);
+
         return "/items/create-item";
     }
 
@@ -112,6 +120,14 @@ public class ItemController {
 
     @RequestMapping("/item/edit")
     public String getEditItem(@Valid Item item, Model model){
+
+        Iterable<BrandEntity> brands = itemService.getBrandRepo().findAll();
+        Iterable<CategoryEntity> categories = itemService.getCategoryRepo().findAll();
+        Iterable<SellerEntity> sellers = itemService.getSellerRepo().findAll();
+
+        model.addAttribute("brands",brands);
+        model.addAttribute("categories",categories);
+        model.addAttribute("sellers",sellers);
 
         model.addAttribute("id", item.getId());
         model.addAttribute("name", item.getName());

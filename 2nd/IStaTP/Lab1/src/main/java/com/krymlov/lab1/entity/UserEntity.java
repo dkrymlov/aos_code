@@ -43,7 +43,7 @@ public class UserEntity extends User {
         super.setUsername(username);
     }
 
-    @Column(nullable = false, length = 24)
+    @Column(nullable = false)
     @Range(min = 6, max = 24)
     @Override
     public String getPassword() {

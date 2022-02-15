@@ -30,7 +30,11 @@
                 <input type="text" name="id" th:value="${id}" style="display: none">
                 <input type="text" name="name" th:placeholder="${name}" class="form-control" required><br>
                 <input type="text" name="info" th:placeholder="${info}" class="form-control" required><br>
-                <input type="text" name="country" th:placeholder="${country.id}" class="form-control" required><br>
+                <select class="form-select" name="country" required>
+                    <option value="" selected>Оберіть країну бренду</option>
+                    <option th:each="el : ${countries}" th:value="${el.id}" th:text="${el.name}"></option>
+                </select>
+                <br>
                 <button type="submit" class="btn btn-primary">Змінити бренд</button>
             </form>
 

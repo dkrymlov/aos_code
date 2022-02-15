@@ -6,10 +6,14 @@ import com.krymlov.lab1.service.BrandService;
 import com.krymlov.lab1.service.GoogleChartsUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
@@ -26,7 +30,7 @@ public class BrandController {
     private GoogleChartsUtils gcu;
 
     @RequestMapping("/brand")
-    public String getBrands(Model model){
+    public String getBrands(Model model, RedirectAttributes redirectAttributes){
 
         Iterable<BrandEntity> brands = brandService.getBrandRepo().findAll();
 
@@ -37,6 +41,8 @@ public class BrandController {
 
     @RequestMapping("/brand/create")
     public String getCreateBrand(Model model){
+            Iterable<CountryEntity> countries = brandService.getCountryRepo().findAll();
+            model.addAttribute("countries", countries);
             return "/brands/create-brand";
     }
 
@@ -77,11 +83,12 @@ public class BrandController {
 
     @RequestMapping("/brand/edit")
     public String getEditBrand(@Valid Brand brand, Model model){
-
+        Iterable<CountryEntity> countries = brandService.getCountryRepo().findAll();
         model.addAttribute("id", brand.getId());
         model.addAttribute("name", brand.getName());
         model.addAttribute("info", brand.getInfo());
         model.addAttribute("country", brand.getCountry());
+        model.addAttribute("countries", countries);
 
         return "/brands/edit-brand";
     }

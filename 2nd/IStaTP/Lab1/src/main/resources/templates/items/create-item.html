@@ -28,9 +28,24 @@
             <form style="padding: 2%" action="/item/create" method="post">
                 <input type="text" name="name" placeholder="Введіть назву товара" class="form-control" required><br>
                 <input type="text" name="info" placeholder="Введіть інформацію про товар" class="form-control" required><br>
-                <input type="text" name="category" placeholder="Введіть ідентифікатор категорії товару" class="form-control" required><br>
+                <!--<input type="text" name="category" placeholder="Введіть ідентифікатор категорії товару" class="form-control" required><br>
                 <input type="text" name="brand" placeholder="Введіть ідентифікатор бренду товару" class="form-control" required><br>
-                <input type="text" name="seller" placeholder="Введіть ідентифікатор продавця товару" class="form-control" required><br>
+                <input type="text" name="seller" placeholder="Введіть ідентифікатор продавця товару" class="form-control" required><br>-->
+                <select class="form-select" name="category" required>
+                    <option value="" selected>Оберіть категорію товару</option>
+                    <option th:each="el : ${categories}" th:value="${el.id}" th:text="${el.name}"></option>
+                </select>
+                <br>
+                <select class="form-select" name="brand" required>
+                    <option value="" selected>Оберіть бренд товару</option>
+                    <option th:each="el : ${brands}" th:value="${el.id}" th:text="${el.name}"></option>
+                </select>
+                <br>
+                <select class="form-select" name="seller" required>
+                    <option value="" selected>Оберіть продавця товару</option>
+                    <option th:each="el : ${sellers}" th:value="${el.id}" th:text="${el.name}"></option>
+                </select>
+                <br>
                 <input type="text" name="price" placeholder="Введіть ціну товару" class="form-control" required><br>
                 <button type="submit" class="btn btn-primary">Створити товар</button>
             </form>

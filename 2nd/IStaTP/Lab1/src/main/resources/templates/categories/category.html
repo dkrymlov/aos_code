@@ -34,18 +34,16 @@
         <table class="table table-dark table-bordered table-hover text-center">
             <thead>
             <tr class="row ml-3">
-                <th class="col-3"><b>#</b></th>
-                <th class="col-3"><b>Назва</b></th>
-                <th class="col-3"><b>Інформація</b></th>
-                <th class="col-3">Дії</th>
+                <th class="col-4"><b>Назва</b></th>
+                <th class="col-4"><b>Інформація</b></th>
+                <th class="col-4">Дії</th>
             </tr>
             </thead>
             <tbody>
             <tr class="row ml-3" th:each="el : ${categories}">
-                <td class="col-3" th:text="${el.id}"></td>
-                <td class="col-3" th:text="${el.name}"></td>
-                <td class="col-3" th:text="${el.info}"></td>
-                <td class="pupa href-container col-3">
+                <td class="col-4" th:text="${el.name}"></td>
+                <td class="col-4" th:text="${el.info}"></td>
+                <td class="pupa href-container col-4">
                     <a th:href="@{/category/edit(id=${el.id},name=${el.name},info=${el.info})}">Змінити</a>|
                     <a th:href="@{/category/details(id=${el.id},name=${el.name},info=${el.info})}">Детальніше</a>|
                     <a th:href="@{/category/delete(id=${el.id},name=${el.name},info=${el.info})}">Видалити</a>
