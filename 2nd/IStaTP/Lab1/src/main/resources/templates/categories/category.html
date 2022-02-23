@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<html lang="en" class="h-100" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="en" class="h-100" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.w3.org/1999/xhtml">
 
 <head th:insert="blocks/head">
 </head>
@@ -25,9 +25,14 @@
             <strong>Помилка: </strong><text th:text="${forbiddenAccess}"></text>
         </div>
 
+        <div th:if="${wrongData}" class="alertError">
+            <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+            <strong>Помилка: </strong><text th:text="${wrongData}"></text>
+        </div>
+
        <div class="categories p-3">
            <h3>Категорії</h3>
-           <a href="/category/create">Створити нову категорію</a>
+           <a sec:authorize="hasRole('ADMIN')" href="/category/create">Створити нову категорію</a>
        </div>
 
 
@@ -44,9 +49,9 @@
                 <td class="col-4" th:text="${el.name}"></td>
                 <td class="col-4" th:text="${el.info}"></td>
                 <td class="pupa href-container col-4">
-                    <a th:href="@{/category/edit(id=${el.id},name=${el.name},info=${el.info})}">Змінити</a>|
-                    <a th:href="@{/category/details(id=${el.id},name=${el.name},info=${el.info})}">Детальніше</a>|
-                    <a th:href="@{/category/delete(id=${el.id},name=${el.name},info=${el.info})}">Видалити</a>
+                    <a sec:authorize="hasRole('ADMIN')" th:href="@{/category/edit(id=${el.id},name=${el.name},info=${el.info})}">Змінити</a>
+                    <a th:href="@{/category/details(id=${el.id},name=${el.name},info=${el.info})}">Детальніше</a>
+                    <a sec:authorize="hasRole('ADMIN')" th:href="@{/category/delete(id=${el.id},name=${el.name},info=${el.info})}">Видалити</a>
                 </td>
             </tr>
             </tbody>

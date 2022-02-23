@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<html lang="en" class="h-100" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="en" class="h-100" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.w3.org/1999/xhtml">
 
 <head th:insert="blocks/head">
 </head>
@@ -25,9 +25,14 @@
             <strong>Увага: </strong><text th:text="${deleted}"></text>
         </div>
 
+        <div th:if="${wrongData}" class="alertError">
+            <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+            <strong>Помилка: </strong><text th:text="${wrongData}"></text>
+        </div>
+
         <div class="categories p-3">
             <h3>Бренди</h3>
-            <a href="/brand/create">Створити новий</a>
+            <a sec:authorize="hasRole('ADMIN')" href="/brand/create">Створити новий</a>
         </div>
 
         <table class="table table-dark table-bordered table-hover text-center">
@@ -45,9 +50,9 @@
                 <td class="col-3" th:text="${el.country.name}"></td>
                 <td class="col-3" th:text="${el.info}"></td>
                 <td class="pupa href-container col-3">
-                    <a th:href="@{/brand/edit(id=${el.id},name=${el.name},info=${el.info},country=${el.country.id})}">Змінити</a>|
-                    <a th:href="@{/brand/details(id=${el.id},name=${el.name},info=${el.info},country=${el.country.id})}">Детальніше</a>|
-                    <a th:href="@{/brand/delete(id=${el.id},name=${el.name},info=${el.info},country=${el.country.id})}">Видалити</a>
+                    <a sec:authorize="hasRole('ADMIN')" th:href="@{/brand/edit(id=${el.id},name=${el.name},info=${el.info},country=${el.country.id})}">Змінити</a>
+                    <a th:href="@{/brand/details(id=${el.id},name=${el.name},info=${el.info},country=${el.country.id})}">Детальніше</a>
+                    <a sec:authorize="hasRole('ADMIN')" th:href="@{/brand/delete(id=${el.id},name=${el.name},info=${el.info},country=${el.country.id})}">Видалити</a>
                 </td>
             </tr>
             </tbody>

@@ -15,6 +15,7 @@ public interface ItemRepo extends CrudRepository<ItemEntity, Long> {
     Iterable<ItemEntity> deleteAllByBrandId(Long id);
     Iterable<ItemEntity> findByOrderByPriceAsc();
     Iterable<ItemEntity> findByOrderByPriceDesc();
+    ItemEntity findByName(String name);
     ItemEntity findByNameAndInfoAndCategoryIdAndBrandIdAndSellerId(String name, String info, Long category_id, Long brand_id, Long seller_id);
     int countAllByBrandId(Long id);
     int countAllByBrandIdAndCategoryId(Long brand_id, Long category_id);

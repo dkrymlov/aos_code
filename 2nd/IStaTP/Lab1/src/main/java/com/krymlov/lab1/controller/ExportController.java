@@ -37,11 +37,6 @@ public class ExportController {
     @Autowired
     private ItemService itemService;
 
-    @RequestMapping("/export")
-    public String getExport(){
-        return "export/export";
-    }
-
     @RequestMapping("/export/brand")
     public void getBrandData(HttpServletResponse response) throws IOException {
         response.setContentType("application/octet-stream");

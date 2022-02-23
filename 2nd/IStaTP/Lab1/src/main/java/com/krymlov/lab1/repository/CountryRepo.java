@@ -6,4 +6,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface CountryRepo extends CrudRepository<CountryEntity, Long> {
+    CountryEntity findCountryEntityByName(String name);
+    CountryEntity findCountryEntityById(Long id);
+    boolean existsByName(String name);
 }

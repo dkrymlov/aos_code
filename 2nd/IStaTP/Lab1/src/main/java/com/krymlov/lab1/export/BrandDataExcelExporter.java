@@ -73,7 +73,7 @@ public class BrandDataExcelExporter {
             createCell(row, columnCount++, brand.getId(), style);
             createCell(row, columnCount++, brand.getName(), style);
             createCell(row, columnCount++, brand.getInfo(), style);
-            createCell(row, columnCount++, brand.getCountry().getName() + " " + brand.getCountry().getId(), style);
+            createCell(row, columnCount++, brand.getCountry().getName(), style);
 
         }
     }

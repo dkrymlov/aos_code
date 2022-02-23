@@ -79,9 +79,9 @@ public class ItemDataExcelExporter {
             createCell(row, columnCount++, item.getName(), style);
             createCell(row, columnCount++, item.getInfo(), style);
             createCell(row, columnCount++, item.getPrice(), style);
-            createCell(row, columnCount++, item.getBrand().getName() + " " + item.getBrand().getId(), style);
-            createCell(row, columnCount++, item.getCategory().getName() + " " + item.getCategory().getId(), style);
-            createCell(row, columnCount++, item.getSeller().getName() + " " + item.getSeller().getId(), style);
+            createCell(row, columnCount++, item.getBrand().getName(), style);
+            createCell(row, columnCount++, item.getCategory().getName(), style);
+            createCell(row, columnCount++, item.getSeller().getName(), style);
 
         }
     }
